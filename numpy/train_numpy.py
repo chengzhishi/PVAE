@@ -1,6 +1,7 @@
 import numpy as np
 import utils_numpy
 import aicrowd_helpers
+from numba import cuda
 
 def hack(x):
     """

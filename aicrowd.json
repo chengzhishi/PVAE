@@ -1,7 +1,7 @@
 {
   "challenge_id": "aicrowd-neurips-2019-disentanglement-challenge",
   "grader_id": "aicrowd-neurips-2019-disentanglement-challenge",
-  "authors": ["spMohanty"],
+  "authors": ["jianqiao cheng, chengzhi shi"],
   "description": "BottleneckVAE model for Disentanglement Challenge",
   "gpu": true
 }

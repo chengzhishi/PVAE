@@ -1,3 +1,6 @@
+#! ~/anaconda3/envs/NIPS/bin/python3
+###PBS -lselect=1:ncpus=4:mem=24gb:ngpus=1:gpu_type=P100 -lwalltime=15:00:00
+#PBS -lselect=1:ncpus=4:mem=96gb:ngpus=1:gpu_type=P1000 -lwalltime=15:00:00
 __doc__ = """
 Example training script with PyTorch. Here's what you need to do. 
 
@@ -35,12 +38,12 @@ from torch.nn import functional as F
 import utils_pytorch as pyu
 
 import aicrowd_helpers
-
+import time
 
 parser = argparse.ArgumentParser(description='VAE Example')
 parser.add_argument('--batch-size', type=int, default=128, metavar='N',
                     help='input batch size for training (default: 128)')
-parser.add_argument('--epochs', type=int, default=10, metavar='N',
+parser.add_argument('--epochs', type=int, default=1000, metavar='N',
                     help='number of epochs to train (default: 10)')
 parser.add_argument('--no-cuda', action='store_true', default=False,
                     help='enables CUDA training')
@@ -85,7 +88,7 @@ class RepresentationExtractor(nn.Module):
 
     def __init__(self, encoder, mode='mean'):
         super(RepresentationExtractor, self).__init__()
-        assert mode in self.VALID_MODES, f'`mode` must be one of {self.VALID_MODES}'
+       # assert mode in self.VALID_MODES, f'`mode` must be one of {self.VALID_MODES}'
         self.encoder = encoder
         self.mode = mode
 
@@ -118,7 +121,7 @@ class VAE(nn.Module):
 
 
 model = VAE().to(device)
-optimizer = optim.Adam(model.parameters(), lr=1e-3)
+optimizer = optim.Adam(model.parameters(), lr=5e-4)
 
 
 # Reconstruction + KL divergence losses summed over all elements and batch
@@ -131,7 +134,7 @@ def loss_function(recon_x, x, mu, logvar):
     # 0.5 * sum(1 + log(sigma^2) - mu^2 - sigma^2)
     KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
 
-    return BCE + KLD
+    return BCE +2* KLD
 
 
 def train(epoch):
@@ -157,12 +160,17 @@ def train(epoch):
 
 if __name__ == '__main__':
     # Go!
+    #start_time = time.time()
     aicrowd_helpers.execution_start()
     aicrowd_helpers.register_progress(0.)
     # Training loop
+    start_time = time.time()
     for epoch in range(1, args.epochs + 1):
         train(epoch)
     # Almost done...
+    elapsed_time = time.time() - start_time
+    file_name = "model.pth"
+    torch.save(model.state_dict(),file_name)
     aicrowd_helpers.register_progress(0.90)
     # Export the representation extractor
     pyu.export_model(RepresentationExtractor(model.encoder, 'mean'),

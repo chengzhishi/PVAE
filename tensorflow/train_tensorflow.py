@@ -199,17 +199,17 @@ class DIPVAE(vae.BaseVAE):
     else:
       raise NotImplementedError("DIP variant not supported.")
     return kl_loss + cov_dip_regularizer
-# gin_bindings = [
-#     "dataset.name = '{}'".format(DATASET_NAME),
-#     "model.model = @BetaTCVAE()",
-#     "BetaTCVAE.beta = 15."
-# ]
 gin_bindings = [
     "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @DIPVAE()",
-    "DIPVAE.lambda_od = 2.",
-    "DIPVAE.lambda_d_factor = 20."
+    "model.model = @BetaTCVAE()",
+    "BetaTCVAE.beta = 15."
 ]
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @DIPVAE()",
+#     "DIPVAE.lambda_od = 2.",
+#     "DIPVAE.lambda_d_factor = 20."
+# ]
 # Call training module to train the custom model.
 experiment_output_path = os.path.join(base_path, experiment_name)
 

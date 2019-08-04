@@ -124,7 +124,7 @@ class BetaTCVAE(vae.BaseVAE):
 gin_bindings = [
     "dataset.name = '{}'".format(DATASET_NAME),
     "model.model = @BetaTCVAE()",
-    "BetaTCVAE.beta = 6."
+    "BetaTCVAE.beta = 15."
 ]
 # Call training module to train the custom model.
 experiment_output_path = os.path.join(base_path, experiment_name)

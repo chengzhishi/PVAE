@@ -46,7 +46,7 @@ overwrite = True
 
 def get_full_path(filename):
     return os.path.join(ROOT, "tensorflow", filename)
-
+#########BetaTCVAE
 def gaussian_log_density(samples, mean, log_var):
   pi = tf.constant(math.pi)
   normalization = tf.log(2. * pi)
@@ -88,6 +88,45 @@ def total_correlation(z, z_mean, z_logvar):
       axis=1,
       keepdims=False)
   return tf.reduce_mean(log_qz - log_qz_product)
+
+#########DIPVAE
+def compute_covariance_z_mean(z_mean):
+  """Computes the covariance of z_mean.
+  Uses cov(z_mean) = E[z_mean*z_mean^T] - E[z_mean]E[z_mean]^T.
+  Args:
+    z_mean: Encoder mean, tensor of size [batch_size, num_latent].
+  Returns:
+    cov_z_mean: Covariance of encoder mean, tensor of size [num_latent,
+      num_latent].
+  """
+  expectation_z_mean_z_mean_t = tf.reduce_mean(
+      tf.expand_dims(z_mean, 2) * tf.expand_dims(z_mean, 1), axis=0)
+  expectation_z_mean = tf.reduce_mean(z_mean, axis=0)
+  cov_z_mean = tf.subtract(
+      expectation_z_mean_z_mean_t,
+      tf.expand_dims(expectation_z_mean, 1) * tf.expand_dims(
+          expectation_z_mean, 0))
+  return cov_z_mean
+
+
+def regularize_diag_off_diag_dip(covariance_matrix, lambda_od, lambda_d):
+  """Compute on and off diagonal regularizers for DIP-VAE models.
+  Penalize deviations of covariance_matrix from the identity matrix. Uses
+  different weights for the deviations of the diagonal and off diagonal entries.
+  Args:
+    covariance_matrix: Tensor of size [num_latent, num_latent] to regularize.
+    lambda_od: Weight of penalty for off diagonal elements.
+    lambda_d: Weight of penalty for diagonal elements.
+  Returns:
+    dip_regularizer: Regularized deviation from diagonal of covariance_matrix.
+  """
+  covariance_matrix_diagonal = tf.diag_part(covariance_matrix)
+  covariance_matrix_off_diagonal = covariance_matrix - tf.diag(
+      covariance_matrix_diagonal)
+  dip_regularizer = tf.add(
+      lambda_od * tf.reduce_sum(covariance_matrix_off_diagonal**2),
+      lambda_d * tf.reduce_sum((covariance_matrix_diagonal - 1)**2))
+  return dip_regularizer
 ########################################################################
 # Register Execution Start
 ########################################################################
@@ -120,11 +159,56 @@ class BetaTCVAE(vae.BaseVAE):
 #     "BottleneckVAE.gamma = 4",
 #     "BottleneckVAE.target = 10."
 # ]
+@gin.configurable("DIPVAE")
+class DIPVAE(vae.BaseVAE):
+  """DIPVAE model."""
 
+  def __init__(self,
+               lambda_od=gin.REQUIRED,
+               lambda_d_factor=gin.REQUIRED,
+               dip_type="i"):
+    """Creates a DIP-VAE model.
+    Based on Equation 6 and 7 of "Variational Inference of Disentangled Latent
+    Concepts from Unlabeled Observations"
+    (https://openreview.net/pdf?id=H1kG7GZAW).
+    Args:
+      lambda_od: Hyperparameter for off diagonal values of covariance matrix.
+      lambda_d_factor: Hyperparameter for diagonal values of covariance matrix
+        lambda_d = lambda_d_factor*lambda_od.
+      dip_type: "i" or "ii".
+      d = 10 od
+    """
+    self.lambda_od = lambda_od
+    self.lambda_d_factor = lambda_d_factor
+    self.dip_type = dip_type
+
+  def regularizer(self, kl_loss, z_mean, z_logvar, z_sampled):
+    cov_z_mean = compute_covariance_z_mean(z_mean)
+    lambda_d = self.lambda_d_factor * self.lambda_od
+    if self.dip_type == "i":  # Eq 6 page 4
+      # mu = z_mean is [batch_size, num_latent]
+      # Compute cov_p(x) [mu(x)] = E[mu*mu^T] - E[mu]E[mu]^T]
+      cov_dip_regularizer = regularize_diag_off_diag_dip(
+          cov_z_mean, self.lambda_od, lambda_d)
+    elif self.dip_type == "ii":
+      cov_enc = tf.matrix_diag(tf.exp(z_logvar))
+      expectation_cov_enc = tf.reduce_mean(cov_enc, axis=0)
+      cov_z = expectation_cov_enc + cov_z_mean
+      cov_dip_regularizer = regularize_diag_off_diag_dip(
+          cov_z, self.lambda_od, lambda_d)
+    else:
+      raise NotImplementedError("DIP variant not supported.")
+    return kl_loss + cov_dip_regularizer
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @BetaTCVAE()",
+#     "BetaTCVAE.beta = 15."
+# ]
 gin_bindings = [
     "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @BetaTCVAE()",
-    "BetaTCVAE.beta = 15."
+    "model.model = @DIPVAE()",
+    "DIPVAE.lambda_od = 2.",
+    "DIPVAE.lambda_d_factor = 20."
 ]
 # Call training module to train the custom model.
 experiment_output_path = os.path.join(base_path, experiment_name)

@@ -12,7 +12,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
+#! /rds/general/user/cs618/home/anaconda3/envs/NIPS/bin/python3
+#PBS -lselect=1:ncpus=4:mem=24gb:ngpus=1:gpu_type=P100 -lwalltime=15:00:00
+###PBS -lselect=1:ncpus=4:mem=96gb:ngpus=1:gpu_type=P1000 -lwalltime=15:00:00
 
 # We group all the imports at the top.
 from __future__ import absolute_import
@@ -30,13 +32,14 @@ from numba import cuda
 import gin.tf
 import aicrowd_helpers
 import math
+import time
 
 # 0. Settings
 # ------------------------------------------------------------------------------
 # By default, we save all the results in subdirectories of the following path.
 base_path = os.getenv("AICROWD_OUTPUT_PATH", "../scratch/shared")
 experiment_name = os.getenv("AICROWD_EVALUATION_NAME", "experiment_name")
-DATASET_NAME = os.getenv("AICROWD_DATASET_NAME", "cars3d")
+DATASET_NAME = os.getenv("AICROWD_DATASET_NAME", "mpi3d_toy")
 ROOT = os.getenv("NDC_ROOT", "..")
 overwrite = True
 
@@ -202,7 +205,7 @@ class DIPVAE(vae.BaseVAE):
 gin_bindings = [
     "dataset.name = '{}'".format(DATASET_NAME),
     "model.model = @BetaTCVAE()",
-    "BetaTCVAE.beta = 15."
+    "BetaTCVAE.beta = 6."
 ]
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),
@@ -217,11 +220,14 @@ experiment_output_path = os.path.join(base_path, experiment_name)
 # Register Progress (start of training)
 ########################################################################
 aicrowd_helpers.register_progress(0.0)
-
+start_time = time.time()
 train.train_with_gin(
     os.path.join(experiment_output_path, "model"), overwrite,
     [get_full_path("model.gin")], gin_bindings)
-
+elapsed_time = time.time() - start_time
+print("##################################Elapsed TIME##############################")
+print(elapsed_time)
+print("##################################Elapsed TIME##############################")
 ########################################################################
 # Register Progress (end of training, start of representation extraction)
 ########################################################################

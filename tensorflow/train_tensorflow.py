@@ -29,6 +29,7 @@ import tensorflow as tf
 from numba import cuda
 import gin.tf
 import aicrowd_helpers
+import math
 
 # 0. Settings
 # ------------------------------------------------------------------------------
@@ -94,8 +95,8 @@ aicrowd_helpers.execution_start()
 
 
 # Train a custom VAE model.
-@gin.configurable("beta_tc_vae")
-class BetaTCVAE(BaseVAE):
+@gin.configurable("BetaTCVAE")
+class BetaTCVAE(vae.BaseVAE):
   """BetaTCVAE model."""
 
   def __init__(self, beta=gin.REQUIRED):
@@ -122,8 +123,8 @@ class BetaTCVAE(BaseVAE):
 
 gin_bindings = [
     "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @BBetaTCVAE()",
-    "BottleneckVAE.beta = 6."
+    "model.model = @BetaTCVAE()",
+    "BetaTCVAE.beta = 6."
 ]
 # Call training module to train the custom model.
 experiment_output_path = os.path.join(base_path, experiment_name)

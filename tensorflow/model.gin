@@ -16,7 +16,7 @@
 model.batch_size = 64
 model.random_seed = 0
 vae.beta = 1
-encoder.num_latent = 10
+encoder.num_latent = 20
 vae_optimizer.optimizer_fn = @AdamOptimizer
 # We train for only 20 steps, in practice we train for 300000 steps.
 model.training_steps = 300000

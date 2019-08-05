@@ -16,7 +16,7 @@
 model.batch_size = 64
 model.random_seed = 0
 vae.beta = 1
-encoder.num_latent = 20
+encoder.num_latent = 15
 vae_optimizer.optimizer_fn = @AdamOptimizer
 #discriminator_optimizer.optimizer_fn=@AdamOptimizer
 

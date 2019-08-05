@@ -202,17 +202,48 @@ class DIPVAE(vae.BaseVAE):
     else:
       raise NotImplementedError("DIP variant not supported.")
     return kl_loss + cov_dip_regularizer
-gin_bindings = [
-    "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @BetaTCVAE()",
-    "BetaTCVAE.beta = 6."
-]
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @BetaTCVAE()",
+#     "BetaTCVAE.beta = 6."
+# ]
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),
 #     "model.model = @DIPVAE()",
 #     "DIPVAE.lambda_od = 2.",
 #     "DIPVAE.lambda_d_factor = 20."
 # ]
+# #factor vae
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @factor_vae()",
+#     "factor_vae.gamma = 6.4"
+# ]
+# tcvae
+gin_bindings = [
+    "dataset.name = '{}'".format(DATASET_NAME),
+    "model.model = @beta_tc_vae()",
+    "beta_tc_vae.beta = 6"
+]
+
+# #dipvae i
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @dip_vae()",
+#     "dip_vae.lambda_od = 2",
+#     "dip_vae.lambda_d_factor = 20",
+#     "dip_vae.dip_type = 'i'"
+# ]
+
+#dipvae ii
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @dip_vae()",
+#     "dip_vae.lambda_od = 2",
+#     "dip_vae.lambda_d_factor = 20",
+#     "dip_vae.dip_type = 'ii'"
+# ]
+
 # Call training module to train the custom model.
 experiment_output_path = os.path.join(base_path, experiment_name)
 
@@ -221,8 +252,12 @@ experiment_output_path = os.path.join(base_path, experiment_name)
 ########################################################################
 aicrowd_helpers.register_progress(0.0)
 start_time = time.time()
+# train.train_with_gin(
+#     os.path.join(experiment_output_path, "model"), overwrite,
+#     [get_full_path("model.gin")], gin_bindings)
+path=os.path.join(experiment_output_path, str(time.time()))
 train.train_with_gin(
-    os.path.join(experiment_output_path, "model"), overwrite,
+    path, overwrite,
     [get_full_path("model.gin")], gin_bindings)
 elapsed_time = time.time() - start_time
 print("##################################Elapsed TIME##############################")
@@ -235,13 +270,19 @@ aicrowd_helpers.register_progress(0.90)
 
 # Extract the mean representation for both of these models.
 representation_path = os.path.join(experiment_output_path, "representation")
-model_path = os.path.join(experiment_output_path, "model")
+#model_path = os.path.join(experiment_output_path, "model")
+model_path =path
 # This contains the settings:
 postprocess_gin = [get_full_path("postprocess.gin")]
 postprocess.postprocess_with_gin(model_path, representation_path, overwrite,
                                  postprocess_gin)
 
 print("Written output to : ", experiment_output_path)
+# path="/rdsgpfs/general/user/cs618/home/neurips2019_disentanglement_challenge_starter_kit/results/"
+# print("#####################################")
+# print(path+str(time.time())+".json")
+# print("#########################")
+# os.rename("/rdsgpfs/general/user/cs618/home/neurips2019_disentanglement_challenge_starter_kit/scratch/shared/myvae/model/results/aggregate/train.json",path+str(time.time())+".json")
 ########################################################################
 # Register Progress (of representation extraction)
 ########################################################################

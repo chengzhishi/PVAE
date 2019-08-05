@@ -39,6 +39,7 @@ import utils_pytorch as pyu
 
 import aicrowd_helpers
 import time
+import math
 
 parser = argparse.ArgumentParser(description='VAE Example')
 parser.add_argument('--batch-size', type=int, default=128, metavar='N',
@@ -61,26 +62,88 @@ device = torch.device("cuda" if args.cuda else "cpu")
 kwargs = {'num_workers': 1, 'pin_memory': True} if args.cuda else {}
 train_loader = pyu.get_loader(batch_size=args.batch_size, **kwargs)
 
+class Flatten(nn.Module):
+    def forward(self, input):
+        return input.view(input.size(0), -1)
+
+
+class UnFlatten(nn.Module):
+    def __init__(self, z_dim):
+        super(UnFlatten, self).__init__()
+        self.z_dim = z_dim
+    def forward(self, input, size=1024):
+        return input.view(input.size(0), self.z_dim, 1, 1)
+
+
+
+
+# class Encoder(nn.Module):
+#     def __init__(self):
+#         super(Encoder, self).__init__()
+#         self.tail = nn.Sequential(nn.Linear(4096 * 3, 400),
+#                                   nn.ReLU())
+#         self.head_mu = nn.Linear(400, 20)
+#         self.head_logvar = nn.Linear(400, 20)
+#
+#     def forward(self, x):
+#         h = self.tail(x.contiguous().view(-1, 4096 * 3))
+#         return self.head_mu(h), self.head_logvar(h)
+#
+#
+# class Decoder(nn.Sequential):
+#     def __init__(self):
+#         super(Decoder, self).__init__(nn.Linear(20, 400),
+#                                       nn.ReLU(),
+#                                       nn.Linear(400, 4096 * 3),
+#                                       nn.Sigmoid())
 
 class Encoder(nn.Module):
-    def __init__(self):
+    def __init__(self,z_dim):
         super(Encoder, self).__init__()
         self.tail = nn.Sequential(nn.Linear(4096 * 3, 400),
                                   nn.ReLU())
-        self.head_mu = nn.Linear(400, 20)
-        self.head_logvar = nn.Linear(400, 20)
+        self.encoder = nn.Sequential(
+            nn.Conv2d(3, 32, kernel_size=4, stride=2),
+            nn.ReLU(),
+            nn.Conv2d(32, 32, kernel_size=4, stride=2),
+            nn.ReLU(),
+            nn.Conv2d(32, 64, kernel_size=2, stride=2),
+            nn.ReLU(),
+            nn.Conv2d(64, 64, kernel_size=2, stride=2),
+            nn.ReLU(),
+            Flatten(),
+            nn.Linear(576, 256),
+        )
+        self.head_mu = nn.Linear(256, z_dim)
+        self.head_logvar = nn.Linear(256, z_dim)
 
     def forward(self, x):
-        h = self.tail(x.contiguous().view(-1, 4096 * 3))
+        h = self.encoder(x)
         return self.head_mu(h), self.head_logvar(h)
 
-
 class Decoder(nn.Sequential):
-    def __init__(self):
-        super(Decoder, self).__init__(nn.Linear(20, 400),
-                                      nn.ReLU(),
-                                      nn.Linear(400, 4096 * 3),
-                                      nn.Sigmoid())
+    def __init__(self,z_dim):
+        super(Decoder, self).__init__()
+        self.decoder1 = nn.Sequential(
+            #UnFlatten(z_dim),
+            nn.Linear(z_dim, 256),
+            nn.ReLU(),
+            nn.Linear(256, 1024))
+
+        self.decoder2 = nn.Sequential(
+            nn.ConvTranspose2d(64, 64, kernel_size=4, stride=2, padding = 1),
+            nn.ReLU(),
+            nn.ConvTranspose2d(64, 32, kernel_size=4, stride=2, padding = 1),
+            nn.ReLU(),
+            nn.ConvTranspose2d(32, 32, kernel_size=4, stride=2, padding = 1),
+            nn.ReLU(),
+            nn.ConvTranspose2d(32, 3, kernel_size=4, stride=2, padding = 1),
+            nn.Sigmoid(),
+            )
+    def forward(self,x):
+        output = self.decoder1(x)
+        output = self.decoder2(output.reshape(-1, 64, 4, 4))
+        return output
 
 
 class RepresentationExtractor(nn.Module):
@@ -107,22 +170,20 @@ class RepresentationExtractor(nn.Module):
         eps = torch.randn_like(std)
         return mu + eps * std
 
-
 class VAE(nn.Module):
-    def __init__(self):
+    def __init__(self, z_dim=10):
         super(VAE, self).__init__()
-        self.encoder = Encoder()
-        self.decoder = Decoder()
+        self.encoder = Encoder(z_dim)
+        self.decoder = Decoder(z_dim)
 
     def forward(self, x):
         mu, logvar = self.encoder(x)
         z = RepresentationExtractor.reparameterize(mu, logvar)
-        return self.decoder(z), mu, logvar
+        return self.decoder(z), mu, logvar, z
 
-
-model = VAE().to(device)
-optimizer = optim.Adam(model.parameters(), lr=5e-4)
-
+z_dim=10
+model = VAE(z_dim=z_dim).to(device)
+optimizer = optim.Adam(model.parameters(), lr=1e-4)###try SGD!!
 
 # Reconstruction + KL divergence losses summed over all elements and batch
 def loss_function(recon_x, x, mu, logvar):
@@ -134,7 +195,45 @@ def loss_function(recon_x, x, mu, logvar):
     # 0.5 * sum(1 + log(sigma^2) - mu^2 - sigma^2)
     KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
 
-    return BCE +2* KLD
+    return BCE + KLD
+
+def gaussian_log_density(samples, mean, log_var):
+    normalization = math.log(torch.tensor(2. * math.pi))
+    inv_sigma = torch.exp(-log_var)
+    tmp = (samples - mean)
+    return -0.5 * (tmp * tmp * inv_sigma + log_var + normalization)
+
+
+def total_correlation(z, z_mean, z_logvar):
+    log_qz_prob = gaussian_log_density(torch.unsqueeze(z, 1), torch.unsqueeze(z_mean, 0),torch.unsqueeze(z_logvar, 0))
+    log_qz_product = log_sum_exp(log_qz_prob, dim=1).sum(dim=1)
+    log_qz = log_sum_exp(log_qz_prob.sum(dim=2),dim=1)
+    return (log_qz - log_qz_product).mean()
+
+def log_sum_exp(value, dim=None, keepdim=False):
+    """Numerically stable implementation of the operation
+    value.exp().sum(dim, keepdim).log()
+    """
+    # TODO: torch.max(value, dim=None) threw an error at time of writing
+    if dim is not None:
+        m, _ = torch.max(value, dim=dim, keepdim=True)
+        value0 = value - m
+        if keepdim is False:
+            m = m.squeeze(dim)
+        return m + torch.log(torch.sum(torch.exp(value0),
+                                       dim=dim, keepdim=keepdim))
+    else:
+        m = torch.max(value)
+        sum_exp = torch.sum(torch.exp(value - m))
+        if isinstance(sum_exp, Number):
+            return m + math.log(sum_exp)
+        else:
+            return m + torch.log(sum_exp)
+
+
+def BetaTC_reg(z_mean, z_logvar, z_sampled, beta=6):
+    tc = (beta - 1.) * total_correlation(z_sampled, z_mean, z_logvar)
+    return tc
 
 
 def train(epoch):
@@ -143,16 +242,17 @@ def train(epoch):
     for batch_idx, data in enumerate(train_loader):
         data = data.to(device).float()
         optimizer.zero_grad()
-        recon_batch, mu, logvar = model(data)
-        loss = loss_function(recon_batch, data, mu, logvar)
+        recon_batch, mu, logvar, z_sample = model(data)
+        BetaTC = BetaTC_reg(mu,logvar,z_sample)
+        loss = loss_function(recon_batch, data, mu, logvar)+BetaTC
         loss.backward()
         train_loss += loss.item()
         optimizer.step()
         if batch_idx % args.log_interval == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
+            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}\tBeta_Loss:{:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader),
-                loss.item() / len(data)))
+                loss.item() / len(data), BetaTC))### last term ["BetaTC","DIP"]
 
     print('====> Epoch: {} Average loss: {:.4f}'.format(
           epoch, train_loss / len(train_loader.dataset)))

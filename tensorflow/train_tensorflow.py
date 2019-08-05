@@ -214,17 +214,17 @@ class DIPVAE(vae.BaseVAE):
 #     "DIPVAE.lambda_d_factor = 20."
 # ]
 # #factor vae
-# gin_bindings = [
-#     "dataset.name = '{}'".format(DATASET_NAME),
-#     "model.model = @factor_vae()",
-#     "factor_vae.gamma = 6.4"
-# ]
-# tcvae
 gin_bindings = [
     "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @beta_tc_vae()",
-    "beta_tc_vae.beta = 6"
+    "model.model = @factor_vae()",
+    "factor_vae.gamma = 6.4"
 ]
+# tcvae
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @beta_tc_vae()",
+#     "beta_tc_vae.beta = 6"
+# ]
 
 # #dipvae i
 # gin_bindings = [
@@ -252,13 +252,13 @@ experiment_output_path = os.path.join(base_path, experiment_name)
 ########################################################################
 aicrowd_helpers.register_progress(0.0)
 start_time = time.time()
-# train.train_with_gin(
-#     os.path.join(experiment_output_path, "model"), overwrite,
-#     [get_full_path("model.gin")], gin_bindings)
-path=os.path.join(experiment_output_path, str(time.time()))
 train.train_with_gin(
-    path, overwrite,
+    os.path.join(experiment_output_path, "model"), overwrite,
     [get_full_path("model.gin")], gin_bindings)
+# path=os.path.join(experiment_output_path, str(time.time()))
+# train.train_with_gin(
+#     path, overwrite,
+#     [get_full_path("model.gin")], gin_bindings)
 elapsed_time = time.time() - start_time
 print("##################################Elapsed TIME##############################")
 print(elapsed_time)

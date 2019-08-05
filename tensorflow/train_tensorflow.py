@@ -39,6 +39,7 @@ import time
 # By default, we save all the results in subdirectories of the following path.
 base_path = os.getenv("AICROWD_OUTPUT_PATH", "../scratch/shared")
 experiment_name = os.getenv("AICROWD_EVALUATION_NAME", "experiment_name")
+#experiment_name = str(time.time())
 DATASET_NAME = os.getenv("AICROWD_DATASET_NAME", "mpi3d_toy")
 ROOT = os.getenv("NDC_ROOT", "..")
 overwrite = True
@@ -213,18 +214,67 @@ class DIPVAE(vae.BaseVAE):
 #     "DIPVAE.lambda_od = 2.",
 #     "DIPVAE.lambda_d_factor = 20."
 # ]
-# #factor vae
-gin_bindings = [
-    "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @factor_vae()",
-    "factor_vae.gamma = 6.4"
-]
-# tcvae
+
+
+
+@gin.configurable("DIPTCVAE")
+class DIPTCVAE(vae.BaseVAE):
+  """BetaTCVAE model."""
+
+  def __init__(self, beta=gin.REQUIRED,
+               lambda_od=gin.REQUIRED,
+               lambda_d_factor=gin.REQUIRED,
+               dip_type=gin.REQUIRED):
+    self.beta = beta
+    self.lambda_od = lambda_od
+    self.lambda_d_factor = lambda_d_factor
+    self.dip_type = dip_type
+  def regularizer(self, kl_loss, z_mean, z_logvar, z_sampled):
+    tc = (self.beta - 1.) * total_correlation(z_sampled, z_mean, z_logvar)
+    cov_z_mean = compute_covariance_z_mean(z_mean)
+    lambda_d = self.lambda_d_factor * self.lambda_od
+    if self.dip_type == "i":
+        cov_dip_regularizer = regularize_diag_off_diag_dip(
+            cov_z_mean, self.lambda_od, lambda_d)
+    elif self.dip_type == "ii":
+        cov_enc = tf.matrix_diag(tf.exp(z_logvar))
+        expectation_cov_enc = tf.reduce_mean(cov_enc, axis=0)
+        cov_z = expectation_cov_enc + cov_z_mean
+        cov_dip_regularizer = regularize_diag_off_diag_dip(
+            cov_z, self.lambda_od, lambda_d)
+    else:
+        raise NotImplementedError("DIP variant not supported.")
+    return kl_loss + (tc  + cov_dip_regularizer)/2
+#diptc i
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),
-#     "model.model = @beta_tc_vae()",
-#     "beta_tc_vae.beta = 6"
+#     "model.model = @DIPTCVAE()",
+#     "DIPTCVAE.beta = 6.",
+#     "DIPTCVAE.lambda_od = 2.",
+#     "DIPTCVAE.lambda_d_factor = 20.",
+#     "DIPTCVAE.dip_type='i'"
 # ]
+#diptc ii
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @DIPTCVAE()",
+#     "DIPTCVAE.beta = 6.",
+#     "DIPTCVAE.lambda_od = 2.",
+#     "DIPTCVAE.lambda_d_factor = 20.",
+#     "DIPTCVAE.dip_type='ii'"
+# ]
+# #factor vae
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @factor_vae()",
+#     "factor_vae.gamma = 6.4"
+# ]
+# tcvae
+gin_bindings = [
+    "dataset.name = '{}'".format(DATASET_NAME),
+    "model.model = @beta_tc_vae()",
+    "beta_tc_vae.beta = 6"
+]
 
 # #dipvae i
 # gin_bindings = [
@@ -255,7 +305,7 @@ start_time = time.time()
 train.train_with_gin(
     os.path.join(experiment_output_path, "model"), overwrite,
     [get_full_path("model.gin")], gin_bindings)
-# path=os.path.join(experiment_output_path, str(time.time()))
+#path=os.path.join(experiment_output_path, str(time.time()))
 # train.train_with_gin(
 #     path, overwrite,
 #     [get_full_path("model.gin")], gin_bindings)
@@ -270,19 +320,16 @@ aicrowd_helpers.register_progress(0.90)
 
 # Extract the mean representation for both of these models.
 representation_path = os.path.join(experiment_output_path, "representation")
-#model_path = os.path.join(experiment_output_path, "model")
-model_path =path
+model_path = os.path.join(experiment_output_path, "model")
+# model_path =path
+# representation_path=path
 # This contains the settings:
 postprocess_gin = [get_full_path("postprocess.gin")]
 postprocess.postprocess_with_gin(model_path, representation_path, overwrite,
                                  postprocess_gin)
 
 print("Written output to : ", experiment_output_path)
-# path="/rdsgpfs/general/user/cs618/home/neurips2019_disentanglement_challenge_starter_kit/results/"
-# print("#####################################")
-# print(path+str(time.time())+".json")
-# print("#########################")
-# os.rename("/rdsgpfs/general/user/cs618/home/neurips2019_disentanglement_challenge_starter_kit/scratch/shared/myvae/model/results/aggregate/train.json",path+str(time.time())+".json")
+
 ########################################################################
 # Register Progress (of representation extraction)
 ########################################################################

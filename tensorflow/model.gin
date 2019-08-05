@@ -13,26 +13,27 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-model.batch_size = 128
+model.batch_size = 512
 model.random_seed = 0
 vae.beta = 1
 encoder.num_latent = 10
-vae_optimizer.optimizer_fn = @AdamOptimizer
-#discriminator_optimizer.optimizer_fn=@AdamOptimizer
+
 
 #no decay
-#discriminator_optimizer.learning_rate = 0.0001
-#vae_optimizer.learning_rate = 0.0001
+vae_optimizer.optimizer_fn = @AdamOptimizer
+# discriminator_optimizer.optimizer_fn=@AdamOptimizer
+# discriminator_optimizer.learning_rate = 0.0001
+vae_optimizer.learning_rate = 0.0001
 #no decay
 
 #decay
-vae_optimizer.optimizer_fn = @AdamOptimizer
+#vae_optimizer.optimizer_fn = @AdamOptimizer
 #discriminator_optimizer.optimizer_fn=@AdamOptimizer
-vae_optimizer.learning_rate = @exponential_decay
+#vae_optimizer.learning_rate = @exponential_decay
 #discriminator_optimizer.learning_rate = @exponential_decay
-exponential_decay.learning_rate = 0.0005
-exponential_decay.decay_steps = 25000
-exponential_decay.decay_rate = 0.9
+#exponential_decay.learning_rate = 0.0001
+#exponential_decay.decay_steps = 25000
+#exponential_decay.decay_rate = 0.9
 #decay
 
 AdamOptimizer.beta1 = 0.9
@@ -45,7 +46,8 @@ AdamOptimizer.use_locking = False
 model.training_steps = 300000
 model.random_seed=0
 
+#encoder.encoder_fn = @lconv_encoder
 encoder.encoder_fn = @conv_encoder
 decoder.decoder_fn = @deconv_decoder
-#discriminator.discriminator_fn = @fc_discriminator
+# discriminator.discriminator_fn = @fc_discriminator
 reconstruction_loss.loss_fn = @bernoulli_loss

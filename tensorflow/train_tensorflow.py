@@ -214,17 +214,17 @@ class DIPVAE(vae.BaseVAE):
 #     "DIPVAE.lambda_d_factor = 20."
 # ]
 # #factor vae
-gin_bindings = [
-    "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @factor_vae()",
-    "factor_vae.gamma = 6.4"
-]
-# tcvae
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),
-#     "model.model = @beta_tc_vae()",
-#     "beta_tc_vae.beta = 6"
+#     "model.model = @factor_vae()",
+#     "factor_vae.gamma = 6.4"
 # ]
+# tcvae
+gin_bindings = [
+    "dataset.name = '{}'".format(DATASET_NAME),
+    "model.model = @beta_tc_vae()",
+    "beta_tc_vae.beta = 6"
+]
 
 # #dipvae i
 # gin_bindings = [

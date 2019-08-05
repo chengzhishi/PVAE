@@ -16,12 +16,12 @@
 model.batch_size = 64
 model.random_seed = 0
 vae.beta = 1
-encoder.num_latent = 10
+encoder.num_latent = 15
 vae_optimizer.optimizer_fn = @AdamOptimizer
-discriminator_optimizer.optimizer_fn=@AdamOptimizer
+#discriminator_optimizer.optimizer_fn=@AdamOptimizer
 
 #no decay
-discriminator_optimizer.learning_rate = 0.0001
+#discriminator_optimizer.learning_rate = 0.0001
 vae_optimizer.learning_rate = 0.0001
 #no decay
 
@@ -47,5 +47,5 @@ model.random_seed=0
 
 encoder.encoder_fn = @conv_encoder
 decoder.decoder_fn = @deconv_decoder
-discriminator.discriminator_fn = @fc_discriminator
+#discriminator.discriminator_fn = @fc_discriminator
 reconstruction_loss.loss_fn = @bernoulli_loss

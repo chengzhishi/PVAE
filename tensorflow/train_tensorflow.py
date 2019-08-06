@@ -23,8 +23,8 @@ from __future__ import print_function
 import os
 from disentanglement_lib.evaluation import evaluate
 from disentanglement_lib.evaluation.metrics import utils
-from disentanglement_lib.methods.unsupervised import train
-#import train ##if pruning , use customized train
+#from disentanglement_lib.methods.unsupervised import train
+import train ##if pruning , use customized train
 from disentanglement_lib.methods.unsupervised import vae
 from disentanglement_lib.postprocessing import postprocess
 from disentanglement_lib.utils import aggregate_results
@@ -195,7 +195,7 @@ class L0BetaTCVAE(vae.BaseVAE):
     if len(output) == 2:
         loss = tf.add(reconstruction_loss, regularizer, name="loss")
     else:
-        loss = tf.add(reconstruction_loss, regularizer+L0_reg/50000., name="loss")
+        loss = tf.add(reconstruction_loss, regularizer+L0_reg/500000., name="loss")
 
     loss = tf.add(reconstruction_loss, regularizer, name="loss")
     elbo = tf.add(reconstruction_loss, kl_loss, name="elbo")
@@ -408,11 +408,11 @@ class DIPTCVAE(vae.BaseVAE):
 #     "DIPTCVAE.dip_type='ii'"
 # ]
 # #factor vae
-gin_bindings = [
-    "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @factor_vae()",
-    "factor_vae.gamma = 6.4"
-]
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @factor_vae()",
+#     "factor_vae.gamma = 10"
+# ]
 #tcvae
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),
@@ -420,11 +420,11 @@ gin_bindings = [
 #     "beta_tc_vae.beta = 4.8"
 # ]
 #L0BetaTCVAE
-# gin_bindings = [
-#     "dataset.name = '{}'".format(DATASET_NAME),
-#     "model.model = @L0BetaTCVAE()",
-#     "L0BetaTCVAE.beta = 6"
-# ]
+gin_bindings = [
+    "dataset.name = '{}'".format(DATASET_NAME),
+    "model.model = @L0BetaTCVAE()",
+    "L0BetaTCVAE.beta = 6"
+]
 
 # #dipvae i
 # gin_bindings = [
@@ -522,7 +522,7 @@ start_time = time.time()
 train.train_with_gin(
     os.path.join(experiment_output_path, "model"), overwrite,
     [get_full_path("model.gin")], gin_bindings)
-#path=os.path.join(experiment_output_path, str(time.time()))
+# path=os.path.join(experiment_output_path, str(time.time()))
 # train.train_with_gin(
 #     path, overwrite,
 #     [get_full_path("model.gin")], gin_bindings)

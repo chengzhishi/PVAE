@@ -9,7 +9,7 @@ limit_a, limit_b, epsilon = -.1, 1.1, 1e-6
 class L0Pair(Layer):
     """Implementation of L0 regularization for the input units of a fully connected layer"""
 
-    def __init__(self, in_features, out_features, bias=True, weight_decay=1., droprate_init=0.5, temperature=1. / 20.,
+    def __init__(self, in_features, out_features, bias=True, weight_decay=0.01, droprate_init=0.2, temperature=1. / 20.,
                  lamba=1., local_rep=False, **kwargs):
         """
         :param in_features: Input dimensionality

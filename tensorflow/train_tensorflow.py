@@ -195,7 +195,7 @@ class L0BetaTCVAE(vae.BaseVAE):
     if len(output) == 2:
         loss = tf.add(reconstruction_loss, regularizer, name="loss")
     else:
-        loss = tf.add(reconstruction_loss, regularizer+L0_reg/500000., name="loss")
+        loss = tf.add(reconstruction_loss, regularizer+L0_reg/100000., name="loss")
 
     loss = tf.add(reconstruction_loss, regularizer, name="loss")
     elbo = tf.add(reconstruction_loss, kl_loss, name="elbo")

@@ -24,7 +24,6 @@ import os
 from disentanglement_lib.evaluation import evaluate
 from disentanglement_lib.evaluation.metrics import utils
 from disentanglement_lib.methods.unsupervised import train
-# import train ##if pruning , use customized train
 from disentanglement_lib.methods.unsupervised import vae
 from disentanglement_lib.postprocessing import postprocess
 from disentanglement_lib.utils import aggregate_results
@@ -47,8 +46,8 @@ from six.moves import zip
 # ------------------------------------------------------------------------------
 # By default, we save all the results in subdirectories of the following path.
 base_path = os.getenv("AICROWD_OUTPUT_PATH", "../scratch/shared")
-experiment_name = os.getenv("AICROWD_EVALUATION_NAME", "experiment_name")
-#experiment_name = str(time.time())
+#experiment_name = os.getenv("AICROWD_EVALUATION_NAME", "experiment_name")
+experiment_name = str(time.time())
 DATASET_NAME = os.getenv("AICROWD_DATASET_NAME", "mpi3d_toy")
 ROOT = os.getenv("NDC_ROOT", "..")
 overwrite = True
@@ -121,13 +120,6 @@ def compute_covariance_z_mean(z_mean):
           expectation_z_mean, 0))
   return cov_z_mean
 
-def make_metric_fn(*names):
-  """Utility function to report tf.metrics in model functions."""
-
-  def metric_fn(*args):
-    return {name: tf.metrics.mean(vec) for name, vec in zip(names, args)}
-
-  return metric_fn
 
 def regularize_diag_off_diag_dip(covariance_matrix, lambda_od, lambda_d):
   """Compute on and off diagonal regularizers for DIP-VAE models.
@@ -152,11 +144,11 @@ def regularize_diag_off_diag_dip(covariance_matrix, lambda_od, lambda_d):
 ########################################################################
 aicrowd_helpers.execution_start()
 
-def compute_gaussian_kl(z_mean, z_logvar, mask):
+def compute_gaussian_kl(z_mean, z_logvar):
   """Compute KL divergence between input Gaussian and Standard Normal."""
   return tf.reduce_mean(
       0.5 * tf.reduce_sum(
-          (tf.square(z_mean) + tf.exp(z_logvar) - z_logvar - 1)*mask, [1]),
+          tf.square(z_mean) + tf.exp(z_logvar) - z_logvar - 1, [1]),
       name="kl_loss")
 
 # Train a custom VAE model.
@@ -185,18 +177,19 @@ class L0BetaTCVAE(vae.BaseVAE):
         z_mean, z_logvar = output
     else:
         z_mean, z_logvar, L0_reg, mask = output
+    # mask,regularization = self.gaussian_encoder(features, is_training).XXXX###《---从这里拿mask和L0 reg
+
     z_sampled = self.sample_from_latent_distribution(z_mean, z_logvar)
     reconstructions = self.decode(z_sampled, data_shape, is_training)
     per_sample_loss = losses.make_reconstruction_loss(features, reconstructions)
     reconstruction_loss = tf.reduce_mean(per_sample_loss)
-    kl_loss = compute_gaussian_kl(z_mean, z_logvar, mask)
+    kl_loss = compute_gaussian_kl(z_mean, z_logvar)
     # regularizer = self.regularizer(kl_loss, z_mean, z_logvar, z_sampled, mask, L0_reg)
     regularizer = self.regularizer(kl_loss, z_mean, z_logvar, z_sampled)
     if len(output) == 2:
         loss = tf.add(reconstruction_loss, regularizer, name="loss")
     else:
-        loss = tf.add(reconstruction_loss, regularizer+L0_reg/50000., name="loss")
-
+        loss = tf.add(reconstruction_loss, regularizer+L0_reg, name="loss")
     loss = tf.add(reconstruction_loss, regularizer, name="loss")
     elbo = tf.add(reconstruction_loss, kl_loss, name="elbo")
     if mode == tf.estimator.ModeKeys.TRAIN:
@@ -205,8 +198,6 @@ class L0BetaTCVAE(vae.BaseVAE):
       train_op = optimizer.minimize(
           loss=loss, global_step=tf.train.get_global_step())
       train_op = tf.group([train_op, update_ops])
-      # tf.summary.scalar("L0_reg", L0_reg)
-      # tf.summary.scalar("mask_sum",tf.reduce_sum(mask))
       tf.summary.scalar("reconstruction_loss", reconstruction_loss)
       tf.summary.scalar("elbo", -elbo)
 
@@ -411,15 +402,18 @@ class DIPTCVAE(vae.BaseVAE):
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),
 #     "model.model = @factor_vae()",
-#     "factor_vae.gamma = 3.2"
+#     "factor_vae.gamma = 6.4"
 # ]
-#tcvae
+
+
+# tcvae
 gin_bindings = [
     "dataset.name = '{}'".format(DATASET_NAME),
     "model.model = @beta_tc_vae()",
     "beta_tc_vae.beta = 6"
 ]
-#L0BetaTCVAE
+
+# l0tcvae
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),
 #     "model.model = @L0BetaTCVAE()",
@@ -449,73 +443,73 @@ experiment_output_path = os.path.join(base_path, experiment_name)
 
 ########################################################################
 # Register Progress (start of training)
-# @gin.configurable("export_as_tf_hub", whitelist=[])
-# def export_as_tf_hub(gaussian_encoder_model,
-#                      observation_shape,
-#                      checkpoint_path,
-#                      export_path,
-#                      drop_collections=None):
-#   """Exports the provided GaussianEncoderModel as a TFHub module.
-#
-#   Args:
-#     gaussian_encoder_model: GaussianEncoderModel to be exported.
-#     observation_shape: Tuple with the observations shape.
-#     checkpoint_path: String with path where to load weights from.
-#     export_path: String with path where to save the TFHub module to.
-#     drop_collections: List of collections to drop from the graph.
-#   """
-#
-#   def module_fn(is_training):
-#     """Module function used for TFHub export."""
-#     with tf.variable_scope(tf.get_variable_scope(), reuse=tf.AUTO_REUSE):
-#       # Add a signature for the Gaussian encoder.
-#       image_placeholder = tf.placeholder(
-#           dtype=tf.float32, shape=[None] + observation_shape)
-#       mean, logvar, reg, mask = gaussian_encoder_model.gaussian_encoder(
-#           image_placeholder, is_training)
-#       hub.add_signature(
-#           name="gaussian_encoder",
-#           inputs={"images": image_placeholder},
-#           outputs={
-#               "mean": mean,
-#               "logvar": logvar
-#           })
-#
-#       # Add a signature for reconstructions.
-#       latent_vector = gaussian_encoder_model.sample_from_latent_distribution(
-#           mean, logvar)
-#       reconstructed_images = gaussian_encoder_model.decode(
-#           latent_vector, observation_shape, is_training)
-#       hub.add_signature(
-#           name="reconstructions",
-#           inputs={"images": image_placeholder},
-#           outputs={"images": reconstructed_images})
-#
-#       # Add a signature for the decoder.
-#       latent_placeholder = tf.placeholder(
-#           dtype=tf.float32, shape=[None, mean.get_shape()[1]])
-#       decoded_images = gaussian_encoder_model.decode(latent_placeholder,
-#                                                      observation_shape,
-#                                                      is_training)
-#
-#       hub.add_signature(
-#           name="decoder",
-#           inputs={"latent_vectors": latent_placeholder},
-#           outputs={"images": decoded_images})
-#
-#   # Export the module.
-#   # Two versions of the model are exported:
-#   #   - one for "test" mode (the default tag)
-#   #   - one for "training" mode ("is_training" tag)
-#   # In the case that the encoder/decoder have dropout, or BN layers, these two
-#   # graphs are different.
-#   tags_and_args = [
-#       ({"train"}, {"is_training": True}),
-#       (set(), {"is_training": False}),
-#   ]
-#   spec = hub.create_module_spec(module_fn, tags_and_args=tags_and_args,
-#                                 drop_collections=drop_collections)
-#   spec.export(export_path, checkpoint_path=checkpoint_path)
+@gin.configurable("export_as_tf_hub", whitelist=[])
+def export_as_tf_hub(gaussian_encoder_model,
+                     observation_shape,
+                     checkpoint_path,
+                     export_path,
+                     drop_collections=None):
+  """Exports the provided GaussianEncoderModel as a TFHub module.
+
+  Args:
+    gaussian_encoder_model: GaussianEncoderModel to be exported.
+    observation_shape: Tuple with the observations shape.
+    checkpoint_path: String with path where to load weights from.
+    export_path: String with path where to save the TFHub module to.
+    drop_collections: List of collections to drop from the graph.
+  """
+
+  def module_fn(is_training):
+    """Module function used for TFHub export."""
+    with tf.variable_scope(tf.get_variable_scope(), reuse=tf.AUTO_REUSE):
+      # Add a signature for the Gaussian encoder.
+      image_placeholder = tf.placeholder(
+          dtype=tf.float32, shape=[None] + observation_shape)
+      mean, logvar, reg, mask = gaussian_encoder_model.gaussian_encoder(
+          image_placeholder, is_training)
+      hub.add_signature(
+          name="gaussian_encoder",
+          inputs={"images": image_placeholder},
+          outputs={
+              "mean": mean,
+              "logvar": logvar
+          })
+
+      # Add a signature for reconstructions.
+      latent_vector = gaussian_encoder_model.sample_from_latent_distribution(
+          mean, logvar)
+      reconstructed_images = gaussian_encoder_model.decode(
+          latent_vector, observation_shape, is_training)
+      hub.add_signature(
+          name="reconstructions",
+          inputs={"images": image_placeholder},
+          outputs={"images": reconstructed_images})
+
+      # Add a signature for the decoder.
+      latent_placeholder = tf.placeholder(
+          dtype=tf.float32, shape=[None, mean.get_shape()[1]])
+      decoded_images = gaussian_encoder_model.decode(latent_placeholder,
+                                                     observation_shape,
+                                                     is_training)
+
+      hub.add_signature(
+          name="decoder",
+          inputs={"latent_vectors": latent_placeholder},
+          outputs={"images": decoded_images})
+
+  # Export the module.
+  # Two versions of the model are exported:
+  #   - one for "test" mode (the default tag)
+  #   - one for "training" mode ("is_training" tag)
+  # In the case that the encoder/decoder have dropout, or BN layers, these two
+  # graphs are different.
+  tags_and_args = [
+      ({"train"}, {"is_training": True}),
+      (set(), {"is_training": False}),
+  ]
+  spec = hub.create_module_spec(module_fn, tags_and_args=tags_and_args,
+                                drop_collections=drop_collections)
+  spec.export(export_path, checkpoint_path=checkpoint_path)
 ########################################################################
 aicrowd_helpers.register_progress(0.0)
 start_time = time.time()

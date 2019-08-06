@@ -20,20 +20,20 @@ encoder.num_latent = 10
 
 
 #no decay
-vae_optimizer.optimizer_fn = @AdamOptimizer
-# discriminator_optimizer.optimizer_fn=@AdamOptimizer
-# discriminator_optimizer.learning_rate = 0.0001
-vae_optimizer.learning_rate = 0.0001
+#vae_optimizer.optimizer_fn = @AdamOptimizer
+#discriminator_optimizer.optimizer_fn=@AdamOptimizer
+#discriminator_optimizer.learning_rate = 0.0001
+#vae_optimizer.learning_rate = 0.0001
 #no decay
 
 #decay
-#vae_optimizer.optimizer_fn = @AdamOptimizer
+vae_optimizer.optimizer_fn = @AdamOptimizer
 #discriminator_optimizer.optimizer_fn=@AdamOptimizer
-#vae_optimizer.learning_rate = @exponential_decay
+vae_optimizer.learning_rate = @exponential_decay
 #discriminator_optimizer.learning_rate = @exponential_decay
-#exponential_decay.learning_rate = 0.0001
-#exponential_decay.decay_steps = 25000
-#exponential_decay.decay_rate = 0.9
+exponential_decay.learning_rate = 0.0005
+exponential_decay.decay_steps = 2500
+exponential_decay.decay_rate = 0.9
 #decay
 
 AdamOptimizer.beta1 = 0.9
@@ -43,11 +43,11 @@ AdamOptimizer.name = 'Adam'
 AdamOptimizer.use_locking = False
 
 # We train for only 20 steps, in practice we train for 300000 steps.
-model.training_steps = 300000
+model.training_steps = 60000
 model.random_seed=0
 
 #encoder.encoder_fn = @lconv_encoder
 encoder.encoder_fn = @conv_encoder
 decoder.decoder_fn = @deconv_decoder
-# discriminator.discriminator_fn = @fc_discriminator
+#discriminator.discriminator_fn = @fc_discriminator
 reconstruction_loss.loss_fn = @bernoulli_loss

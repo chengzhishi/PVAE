@@ -77,12 +77,12 @@ def export_as_tf_hub(gaussian_encoder_model,
       image_placeholder = tf.placeholder(
           dtype=tf.float32, shape=[None] + observation_shape)
 
-      output = gaussian_encoder_model.gaussian_encoder(
+      mean, logvar, L0_reg, mask  = gaussian_encoder_model.gaussian_encoder(
           image_placeholder, is_training)
-      if len(output) == 2:
-          z_mean, z_logvar = output
-      else:
-          z_means, z_logvar, L0_reg, mask = output
+      # if len(output) == 2:
+      #     z_mean, z_logvar = output
+      # else:
+      #     z_means, z_logvar, L0_reg, mask = output
       hub.add_signature(
           name="gaussian_encoder",
           inputs={"images": image_placeholder},

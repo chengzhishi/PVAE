@@ -24,7 +24,7 @@ import os
 from disentanglement_lib.evaluation import evaluate
 from disentanglement_lib.evaluation.metrics import utils
 from disentanglement_lib.methods.unsupervised import train
-# import train ##if pruning , use customized train
+#import train ##if pruning , use customized train
 from disentanglement_lib.methods.unsupervised import vae
 from disentanglement_lib.postprocessing import postprocess
 from disentanglement_lib.utils import aggregate_results
@@ -208,7 +208,7 @@ class L0BetaTCVAE(vae.BaseVAE):
       # tf.summary.scalar("L0_reg", L0_reg)
       # tf.summary.scalar("mask_sum",tf.reduce_sum(mask))
       tf.summary.scalar("reconstruction_loss", reconstruction_loss)
-      tf.summary.scalar("elbo", -elbo)
+      tf.summary.scalar("elbo", elbo)
 
       logging_hook = tf.train.LoggingTensorHook({
           "loss": loss,
@@ -408,17 +408,17 @@ class DIPTCVAE(vae.BaseVAE):
 #     "DIPTCVAE.dip_type='ii'"
 # ]
 # #factor vae
-# gin_bindings = [
-#     "dataset.name = '{}'".format(DATASET_NAME),
-#     "model.model = @factor_vae()",
-#     "factor_vae.gamma = 3.2"
-# ]
-#tcvae
 gin_bindings = [
     "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @beta_tc_vae()",
-    "beta_tc_vae.beta = 6"
+    "model.model = @factor_vae()",
+    "factor_vae.gamma = 6.4"
 ]
+#tcvae
+# gin_bindings = [
+#     "dataset.name = '{}'".format(DATASET_NAME),
+#     "model.model = @beta_tc_vae()",
+#     "beta_tc_vae.beta = 4.8"
+# ]
 #L0BetaTCVAE
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),

@@ -408,17 +408,19 @@ class DIPTCVAE(vae.BaseVAE):
 #     "DIPTCVAE.dip_type='ii'"
 # ]
 # #factor vae
-gin_bindings = [
-    "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @factor_vae()",
-    "factor_vae.gamma = 6.4"
-]
-#tcvae
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),
-#     "model.model = @beta_tc_vae()",
-#     "beta_tc_vae.beta = 4.8"
+#     "model.model = @factor_vae()",
+#     "factor_vae.gamma = 6.4"
 # ]
+#tcvae
+
+
+gin_bindings = [
+    "dataset.name = '{}'".format(DATASET_NAME),
+    "model.model = @beta_tc_vae()",
+    "beta_tc_vae.beta = 4"
+]
 #L0BetaTCVAE
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),

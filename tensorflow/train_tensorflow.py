@@ -414,12 +414,10 @@ class DIPTCVAE(vae.BaseVAE):
 #     "factor_vae.gamma = 6.4"
 # ]
 #tcvae
-
-
 gin_bindings = [
     "dataset.name = '{}'".format(DATASET_NAME),
     "model.model = @beta_tc_vae()",
-    "beta_tc_vae.beta = 4"
+    "beta_tc_vae.beta = 4.8"
 ]
 #L0BetaTCVAE
 # gin_bindings = [

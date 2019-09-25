@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-model.batch_size = 512
+model.batch_size = 256
 model.random_seed = 0
 vae.beta = 1
 encoder.num_latent = 10
@@ -28,12 +28,13 @@ encoder.num_latent = 10
 
 #decay
 vae_optimizer.optimizer_fn = @AdamOptimizer
-discriminator_optimizer.optimizer_fn=@AdamOptimizer
-vae_optimizer.learning_rate = @exponential_decay
-discriminator_optimizer.learning_rate = @exponential_decay
-exponential_decay.learning_rate = 0.0005
-exponential_decay.decay_steps = 1250
-exponential_decay.decay_rate = 0.9
+vae_optimizer.learning_rate = 1e-4
+
+# discriminator_optimizer.optimizer_fn=@AdamOptimizer
+# discriminator_optimizer.learning_rate = @exponential_decay
+# exponential_decay.learning_rate = 0.0005
+# exponential_decay.decay_steps = 1250
+# exponential_decay.decay_rate = 0.9
 #decay
 
 AdamOptimizer.beta1 = 0.9
@@ -43,7 +44,7 @@ AdamOptimizer.name = 'Adam'
 AdamOptimizer.use_locking = False
 
 # We train for only 20 steps, in practice we train for 300000 steps.
-model.training_steps = 40000
+model.training_steps = 300000
 model.random_seed=0
 
 #encoder.encoder_fn = @lconv_encoder

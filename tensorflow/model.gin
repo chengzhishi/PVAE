@@ -44,7 +44,7 @@ AdamOptimizer.name = 'Adam'
 AdamOptimizer.use_locking = False
 
 # We train for only 20 steps, in practice we train for 300000 steps.
-model.training_steps = 300000
+model.training_steps = 100000
 model.random_seed=0
 
 #encoder.encoder_fn = @lconv_encoder

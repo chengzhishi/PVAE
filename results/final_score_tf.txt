@@ -1,0 +1,928 @@
+
+##############################################################################################
+
+date time: 20190930_073537
+
+elapsed time: 3580.285895347595
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @beta_tc_vae()
+beta_tc_vae.beta = 4
+
+########## model.gin: ##########
+
+model.batch_size = 256
+model.random_seed = 0
+vae.beta = 1
+encoder.num_latent = 10
+
+
+#no decay
+#vae_optimizer.optimizer_fn = @AdamOptimizer
+#discriminator_optimizer.optimizer_fn=@AdamOptimizer
+#discriminator_optimizer.learning_rate = 0.0001
+#vae_optimizer.learning_rate = 0.0001
+#no decay
+
+#decay
+vae_optimizer.optimizer_fn = @AdamOptimizer
+vae_optimizer.learning_rate = 1e-4
+
+# discriminator_optimizer.optimizer_fn=@AdamOptimizer
+# discriminator_optimizer.learning_rate = @exponential_decay
+# exponential_decay.learning_rate = 0.0005
+# exponential_decay.decay_steps = 1250
+# exponential_decay.decay_rate = 0.9
+#decay
+
+AdamOptimizer.beta1 = 0.9
+AdamOptimizer.beta2 = 0.999
+AdamOptimizer.epsilon = 1e-08
+AdamOptimizer.name = 'Adam'
+AdamOptimizer.use_locking = False
+
+# We train for only 20 steps, in practice we train for 300000 steps.
+model.training_steps = 20000
+model.random_seed=0
+
+#encoder.encoder_fn = @lconv_encoder
+encoder.encoder_fn = @conv_encoder
+decoder.decoder_fn = @deconv_decoder
+discriminator.discriminator_fn = @fc_discriminator
+reconstruction_loss.loss_fn = @bernoulli_loss
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.14472318754775687
+factor_vae_metric: 0.2612
+sap_score: 0.010399999999999984
+mig: 0.036216278597657796
+irs: 0.5379943792707839
+
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.14486555645228608
+factor_vae_metric: 0.2612
+sap_score: 0.010399999999999984
+mig: 0.036216278597657796
+irs: 0.5379943792707839
+
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.14481688148152586
+factor_vae_metric: 0.2612
+sap_score: 0.010399999999999984
+mig: 0.036216278597657796
+irs: 0.5379943792707839
+
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.14492073584968992
+factor_vae_metric: 0.2612
+sap_score: 0.010342857142857126
+mig: 0.036216278597657796
+irs: 0.5379943792707839
+
+
+##############################################################################################
+
+date time: 20190930_141517
+
+elapsed time: 3440.5397255420685
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @beta_tc_vae()
+beta_tc_vae.beta = 4
+
+########## model.gin: ##########
+
+model.batch_size = 256
+model.random_seed = 0
+vae.beta = 1
+encoder.num_latent = 10
+
+
+#no decay
+#vae_optimizer.optimizer_fn = @AdamOptimizer
+#discriminator_optimizer.optimizer_fn=@AdamOptimizer
+#discriminator_optimizer.learning_rate = 0.0001
+#vae_optimizer.learning_rate = 0.0001
+#no decay
+
+#decay
+vae_optimizer.optimizer_fn = @AdamOptimizer
+vae_optimizer.learning_rate = 5e-4
+
+# discriminator_optimizer.optimizer_fn=@AdamOptimizer
+# discriminator_optimizer.learning_rate = @exponential_decay
+# exponential_decay.learning_rate = 0.0005
+# exponential_decay.decay_steps = 1250
+# exponential_decay.decay_rate = 0.9
+#decay
+
+AdamOptimizer.beta1 = 0.9
+AdamOptimizer.beta2 = 0.999
+AdamOptimizer.epsilon = 1e-08
+AdamOptimizer.name = 'Adam'
+AdamOptimizer.use_locking = False
+
+# We train for only 20 steps, in practice we train for 300000 steps.
+model.training_steps = 20000
+model.random_seed=0
+
+#encoder.encoder_fn = @lconv_encoder
+encoder.encoder_fn = @conv_encoder
+decoder.decoder_fn = @deconv_decoder
+discriminator.discriminator_fn = @fc_discriminator
+reconstruction_loss.loss_fn = @bernoulli_loss
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.2306662737515588
+factor_vae_metric: 0.3498
+sap_score: 0.08357142857142862
+mig: 0.14324641202950142
+irs: 0.5668798992012529
+
+
+##############################################################################################
+
+date time: 20190930_151725
+
+elapsed time: 3461.1152839660645
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @beta_tc_vae()
+beta_tc_vae.beta = 4
+
+########## model.gin: ##########
+
+model.batch_size = 256
+model.random_seed = 0
+vae.beta = 1
+encoder.num_latent = 10
+
+
+#no decay
+#vae_optimizer.optimizer_fn = @AdamOptimizer
+#discriminator_optimizer.optimizer_fn=@AdamOptimizer
+#discriminator_optimizer.learning_rate = 0.0001
+#vae_optimizer.learning_rate = 0.0001
+#no decay
+
+#decay
+vae_optimizer.optimizer_fn = @AdamOptimizer
+vae_optimizer.learning_rate = 1e-3
+
+# discriminator_optimizer.optimizer_fn=@AdamOptimizer
+# discriminator_optimizer.learning_rate = @exponential_decay
+# exponential_decay.learning_rate = 0.0005
+# exponential_decay.decay_steps = 1250
+# exponential_decay.decay_rate = 0.9
+#decay
+
+AdamOptimizer.beta1 = 0.9
+AdamOptimizer.beta2 = 0.999
+AdamOptimizer.epsilon = 1e-08
+AdamOptimizer.name = 'Adam'
+AdamOptimizer.use_locking = False
+
+# We train for only 20 steps, in practice we train for 300000 steps.
+model.training_steps = 20000
+model.random_seed=0
+
+#encoder.encoder_fn = @lconv_encoder
+encoder.encoder_fn = @conv_encoder
+decoder.decoder_fn = @deconv_decoder
+discriminator.discriminator_fn = @fc_discriminator
+reconstruction_loss.loss_fn = @bernoulli_loss
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.12627313370779775
+factor_vae_metric: 0.2348
+sap_score: 0.0098857142857143
+mig: 0.06496975035037558
+irs: 0.5280962099412269
+
+
+##############################################################################################
+
+date time: 20190930_201749
+
+elapsed time: 3504.3500034809113
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @dip_vae()
+dip_vae.lambda_od = 3.0
+dip_vae.lambda_d_factor = 30.0
+dip_vae.dip_type = 'i'
+
+########## model.gin: ##########
+
+model.batch_size = 256
+model.random_seed = 0
+vae.beta = 1
+encoder.num_latent = 10
+
+
+#no decay
+#vae_optimizer.optimizer_fn = @AdamOptimizer
+#discriminator_optimizer.optimizer_fn=@AdamOptimizer
+#discriminator_optimizer.learning_rate = 0.0001
+#vae_optimizer.learning_rate = 0.0001
+#no decay
+
+#decay
+vae_optimizer.optimizer_fn = @AdamOptimizer
+vae_optimizer.learning_rate = 1e-4
+
+# discriminator_optimizer.optimizer_fn=@AdamOptimizer
+# discriminator_optimizer.learning_rate = @exponential_decay
+# exponential_decay.learning_rate = 0.0005
+# exponential_decay.decay_steps = 1250
+# exponential_decay.decay_rate = 0.9
+#decay
+
+AdamOptimizer.beta1 = 0.9
+AdamOptimizer.beta2 = 0.999
+AdamOptimizer.epsilon = 1e-08
+AdamOptimizer.name = 'Adam'
+AdamOptimizer.use_locking = False
+
+# We train for only 20 steps, in practice we train for 300000 steps.
+model.training_steps = 20000
+model.random_seed=0
+
+#encoder.encoder_fn = @h_encoder
+#encoder.encoder_fn = @h_encoder
+#decoder.decoder_fn = @h_decoder
+encoder.encoder_fn = @conv_encoder
+decoder.decoder_fn = @deconv_decoder
+discriminator.discriminator_fn = @fc_discriminator
+reconstruction_loss.loss_fn = @bernoulli_loss
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.1641628132993616
+factor_vae_metric: 0.4284
+sap_score: 0.05442857142857143
+mig: 0.07161555913639929
+irs: 0.35068154253219924
+
+
+##############################################################################################
+
+########## time: ##########
+
+date time: 20190930_215637
+
+elapsed time: 3547.7889518737793
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @dip_vae()
+dip_vae.lambda_od = 5.0
+dip_vae.lambda_d_factor = 50.0
+dip_vae.dip_type = 'i'
+
+########## model.gin: ##########
+vae_optimizer.learning_rate = 1e-4
+{
+  "train_config.AdamOptimizer.beta1": "0.9",
+  "train_config.AdamOptimizer.beta2": "0.999",
+  "train_config.AdamOptimizer.epsilon": "1e-08",
+  "train_config.AdamOptimizer.name": "'Adam'",
+  "train_config.AdamOptimizer.use_locking": "False",
+  "train_config.bernoulli_loss.subtract_true_image_entropy": "False",
+  "train_config.dataset.name": "'mpi3d_realistic'",
+  "train_config.decoder.decoder_fn": "@deconv_decoder",
+  "train_config.dip_vae.dip_type": "'i'",
+  "train_config.dip_vae.lambda_d_factor": "50.0",
+  "train_config.dip_vae.lambda_od": "5.0",
+  "train_config.encoder.encoder_fn": "@conv_encoder",
+  "train_config.encoder.num_latent": "10",
+  "train_config.export_as_tf_hub.drop_collections": "None",
+  "train_config.model.batch_size": "256",
+  "train_config.model.eval_steps": "1000",
+  "train_config.model.model": "@dip_vae()",
+  "train_config.model.model_num": "None",
+  "train_config.model.name": "''",
+  "train_config.model.random_seed": "0",
+  "train_config.model.training_steps": "20000",
+  "train_config.reconstruction_loss.activation": "'logits'",
+  "train_config.reconstruction_loss.loss_fn": "@bernoulli_loss",
+  "train_config.vae_optimizer.learning_rate": "0.0001",
+  "train_config.vae_optimizer.optimizer_fn": "@AdamOptimizer",
+  "train_results.elbo": -5618.49072265625,
+  "train_results.kl_loss": 10.933307647705078,
+  "train_results.loss": 5630.80615234375,
+  "train_results.reconstruction_loss": 5607.55859375,
+  "train_results.regularizer": 23.248361587524414,
+  "train_results.global_step": 20000,
+  "train_results.elapsed_time": 3539.47568154335,
+  "train_results.uuid": "8e9c17a3-13e7-466e-b381-1c52caeb1980",
+  "postprocess_config.dataset.name": "'mpi3d_realistic'",
+  "postprocess_config.postprocess.name": "''",
+  "postprocess_config.postprocess.postprocess_fn": "@mean_representation",
+  "postprocess_config.postprocess.random_seed": "0",
+  "postprocess_results.elapsed_time": 9.822827816009521,
+  "postprocess_results.uuid": "067d35ec-22e2-4549-b75f-25c0a1fba134"
+}
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.14090188646253318
+factor_vae_metric: 0.4256
+sap_score: 0.04648571428571426
+mig: 0.06669004020498982
+irs: 0.359229553820819
+
+
+##############################################################################################
+
+########## time: ##########
+
+date time: 20190930_225723
+
+elapsed time: 3378.123559951782
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @dip_vae()
+dip_vae.lambda_od = 2.0
+dip_vae.lambda_d_factor = 20.0
+dip_vae.dip_type = 'i'
+
+########## model.gin: ##########
+vae_optimizer.learning_rate = 1e-4
+{
+  "train_config.AdamOptimizer.beta1": "0.9",
+  "train_config.AdamOptimizer.beta2": "0.999",
+  "train_config.AdamOptimizer.epsilon": "1e-08",
+  "train_config.AdamOptimizer.name": "'Adam'",
+  "train_config.AdamOptimizer.use_locking": "False",
+  "train_config.bernoulli_loss.subtract_true_image_entropy": "False",
+  "train_config.dataset.name": "'mpi3d_realistic'",
+  "train_config.decoder.decoder_fn": "@deconv_decoder",
+  "train_config.dip_vae.dip_type": "'i'",
+  "train_config.dip_vae.lambda_d_factor": "20.0",
+  "train_config.dip_vae.lambda_od": "2.0",
+  "train_config.encoder.encoder_fn": "@conv_encoder",
+  "train_config.encoder.num_latent": "10",
+  "train_config.export_as_tf_hub.drop_collections": "None",
+  "train_config.model.batch_size": "256",
+  "train_config.model.eval_steps": "1000",
+  "train_config.model.model": "@dip_vae()",
+  "train_config.model.model_num": "None",
+  "train_config.model.name": "''",
+  "train_config.model.random_seed": "0",
+  "train_config.model.training_steps": "20000",
+  "train_config.reconstruction_loss.activation": "'logits'",
+  "train_config.reconstruction_loss.loss_fn": "@bernoulli_loss",
+  "train_config.vae_optimizer.learning_rate": "0.0001",
+  "train_config.vae_optimizer.optimizer_fn": "@AdamOptimizer",
+  "train_results.elbo": -5607.630859375,
+  "train_results.kl_loss": 12.8047513961792,
+  "train_results.loss": 5611.314453125,
+  "train_results.reconstruction_loss": 5594.8271484375,
+  "train_results.regularizer": 16.493101119995117,
+  "train_results.global_step": 20000,
+  "train_results.elapsed_time": 3369.7910680770874,
+  "train_results.uuid": "bf99d812-618d-448d-9d4e-aa0b781cd312",
+  "postprocess_config.dataset.name": "'mpi3d_realistic'",
+  "postprocess_config.postprocess.name": "''",
+  "postprocess_config.postprocess.postprocess_fn": "@mean_representation",
+  "postprocess_config.postprocess.random_seed": "0",
+  "postprocess_results.elapsed_time": 9.809718370437622,
+  "postprocess_results.uuid": "28db28b3-74cc-4bc0-bb7f-380d28b3fc12"
+}
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.1916677345512614
+factor_vae_metric: 0.4974
+sap_score: 0.052600000000000015
+mig: 0.1073800510774394
+irs: 0.3611016998055913
+
+
+##############################################################################################
+
+########## time: ##########
+
+date time: 20190930_235809
+
+elapsed time: 3378.369908809662
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @dip_vae()
+dip_vae.lambda_od = 2.5
+dip_vae.lambda_d_factor = 25.0
+dip_vae.dip_type = 'i'
+
+########## model.gin: ##########
+vae_optimizer.learning_rate = 1e-4
+{
+  "train_config.AdamOptimizer.beta1": "0.9",
+  "train_config.AdamOptimizer.beta2": "0.999",
+  "train_config.AdamOptimizer.epsilon": "1e-08",
+  "train_config.AdamOptimizer.name": "'Adam'",
+  "train_config.AdamOptimizer.use_locking": "False",
+  "train_config.bernoulli_loss.subtract_true_image_entropy": "False",
+  "train_config.dataset.name": "'mpi3d_realistic'",
+  "train_config.decoder.decoder_fn": "@deconv_decoder",
+  "train_config.dip_vae.dip_type": "'i'",
+  "train_config.dip_vae.lambda_d_factor": "25.0",
+  "train_config.dip_vae.lambda_od": "2.5",
+  "train_config.encoder.encoder_fn": "@conv_encoder",
+  "train_config.encoder.num_latent": "10",
+  "train_config.export_as_tf_hub.drop_collections": "None",
+  "train_config.model.batch_size": "256",
+  "train_config.model.eval_steps": "1000",
+  "train_config.model.model": "@dip_vae()",
+  "train_config.model.model_num": "None",
+  "train_config.model.name": "''",
+  "train_config.model.random_seed": "0",
+  "train_config.model.training_steps": "20000",
+  "train_config.reconstruction_loss.activation": "'logits'",
+  "train_config.reconstruction_loss.loss_fn": "@bernoulli_loss",
+  "train_config.vae_optimizer.learning_rate": "0.0001",
+  "train_config.vae_optimizer.optimizer_fn": "@AdamOptimizer",
+  "train_results.elbo": -5610.12890625,
+  "train_results.kl_loss": 12.523116111755371,
+  "train_results.loss": 5614.50244140625,
+  "train_results.reconstruction_loss": 5597.60546875,
+  "train_results.regularizer": 16.89917755126953,
+  "train_results.global_step": 20000,
+  "train_results.elapsed_time": 3369.9722440242767,
+  "train_results.uuid": "014d250c-7168-413e-a6e0-a85d832186e8",
+  "postprocess_config.dataset.name": "'mpi3d_realistic'",
+  "postprocess_config.postprocess.name": "''",
+  "postprocess_config.postprocess.postprocess_fn": "@mean_representation",
+  "postprocess_config.postprocess.random_seed": "0",
+  "postprocess_results.elapsed_time": 9.822575092315674,
+  "postprocess_results.uuid": "6da4f43d-ae66-4c0d-bc0d-df7c1a67d3ca"
+}
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.19078170353111792
+factor_vae_metric: 0.5084
+sap_score: 0.034714285714285704
+mig: 0.0430506099493214
+irs: 0.3662972574053692
+
+
+##############################################################################################
+
+########## time: ##########
+
+date time: 20191001_005859
+
+elapsed time: 3383.8266479969025
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @dip_vae()
+dip_vae.lambda_od = 1.8
+dip_vae.lambda_d_factor = 18.0
+dip_vae.dip_type = 'i'
+
+########## model.gin: ##########
+vae_optimizer.learning_rate = 1e-4
+{
+  "train_config.AdamOptimizer.beta1": "0.9",
+  "train_config.AdamOptimizer.beta2": "0.999",
+  "train_config.AdamOptimizer.epsilon": "1e-08",
+  "train_config.AdamOptimizer.name": "'Adam'",
+  "train_config.AdamOptimizer.use_locking": "False",
+  "train_config.bernoulli_loss.subtract_true_image_entropy": "False",
+  "train_config.dataset.name": "'mpi3d_realistic'",
+  "train_config.decoder.decoder_fn": "@deconv_decoder",
+  "train_config.dip_vae.dip_type": "'i'",
+  "train_config.dip_vae.lambda_d_factor": "18.0",
+  "train_config.dip_vae.lambda_od": "1.8",
+  "train_config.encoder.encoder_fn": "@conv_encoder",
+  "train_config.encoder.num_latent": "10",
+  "train_config.export_as_tf_hub.drop_collections": "None",
+  "train_config.model.batch_size": "256",
+  "train_config.model.eval_steps": "1000",
+  "train_config.model.model": "@dip_vae()",
+  "train_config.model.model_num": "None",
+  "train_config.model.name": "''",
+  "train_config.model.random_seed": "0",
+  "train_config.model.training_steps": "20000",
+  "train_config.reconstruction_loss.activation": "'logits'",
+  "train_config.reconstruction_loss.loss_fn": "@bernoulli_loss",
+  "train_config.vae_optimizer.learning_rate": "0.0001",
+  "train_config.vae_optimizer.optimizer_fn": "@AdamOptimizer",
+  "train_results.elbo": -5607.34912109375,
+  "train_results.kl_loss": 12.356298446655273,
+  "train_results.loss": 5609.77734375,
+  "train_results.reconstruction_loss": 5594.99462890625,
+  "train_results.regularizer": 14.786230087280273,
+  "train_results.global_step": 20000,
+  "train_results.elapsed_time": 3375.4962301254272,
+  "train_results.uuid": "11e9325e-1bfd-4b77-9637-99675cd1c034",
+  "postprocess_config.dataset.name": "'mpi3d_realistic'",
+  "postprocess_config.postprocess.name": "''",
+  "postprocess_config.postprocess.postprocess_fn": "@mean_representation",
+  "postprocess_config.postprocess.random_seed": "0",
+  "postprocess_results.elapsed_time": 9.887912273406982,
+  "postprocess_results.uuid": "5edc81e7-27d7-4272-9e30-7157ccd56fc6"
+}
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.1617141638004857
+factor_vae_metric: 0.4818
+sap_score: 0.04057142857142856
+mig: 0.11097467056372103
+irs: 0.3749343365620358
+
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.1613951297615116
+factor_vae_metric: 0.4818
+sap_score: 0.04057142857142856
+mig: 0.11097467056372103
+irs: 0.3749343365620358
+
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.16163127436444866
+factor_vae_metric: 0.4818
+sap_score: 0.04057142857142856
+mig: 0.11097467056372103
+irs: 0.3749343365620358
+
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.16164864298821768
+factor_vae_metric: 0.4818
+sap_score: 0.04057142857142856
+mig: 0.11097467056372103
+irs: 0.3749343365620358
+
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.16176077699514654
+factor_vae_metric: 0.4818
+sap_score: 0.04057142857142856
+mig: 0.11097467056372103
+irs: 0.3749343365620358
+
+
+##############################################################################################
+
+########## time: ##########
+
+date time: 20191001_041346
+
+elapsed time: 3395.8594715595245
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @dip_vae()
+dip_vae.lambda_od = 8.0
+dip_vae.lambda_d_factor = 80.0
+dip_vae.dip_type = 'i'
+
+########## model.gin: ##########
+vae_optimizer.learning_rate = 1e-4
+{
+  "train_config.AdamOptimizer.beta1": "0.9",
+  "train_config.AdamOptimizer.beta2": "0.999",
+  "train_config.AdamOptimizer.epsilon": "1e-08",
+  "train_config.AdamOptimizer.name": "'Adam'",
+  "train_config.AdamOptimizer.use_locking": "False",
+  "train_config.bernoulli_loss.subtract_true_image_entropy": "False",
+  "train_config.dataset.name": "'mpi3d_realistic'",
+  "train_config.decoder.decoder_fn": "@deconv_decoder",
+  "train_config.dip_vae.dip_type": "'i'",
+  "train_config.dip_vae.lambda_d_factor": "80.0",
+  "train_config.dip_vae.lambda_od": "8.0",
+  "train_config.encoder.encoder_fn": "@conv_encoder",
+  "train_config.encoder.num_latent": "10",
+  "train_config.export_as_tf_hub.drop_collections": "None",
+  "train_config.model.batch_size": "256",
+  "train_config.model.eval_steps": "1000",
+  "train_config.model.model": "@dip_vae()",
+  "train_config.model.model_num": "None",
+  "train_config.model.name": "''",
+  "train_config.model.random_seed": "0",
+  "train_config.model.training_steps": "20000",
+  "train_config.reconstruction_loss.activation": "'logits'",
+  "train_config.reconstruction_loss.loss_fn": "@bernoulli_loss",
+  "train_config.vae_optimizer.learning_rate": "0.0001",
+  "train_config.vae_optimizer.optimizer_fn": "@AdamOptimizer",
+  "train_results.elbo": -5624.50146484375,
+  "train_results.kl_loss": 10.037181854248047,
+  "train_results.loss": 5653.8857421875,
+  "train_results.reconstruction_loss": 5614.46337890625,
+  "train_results.regularizer": 39.41972732543945,
+  "train_results.global_step": 20000,
+  "train_results.elapsed_time": 3347.4077394008636,
+  "train_results.uuid": "67a0b850-428f-4e98-ab12-9e3d9d09ed35",
+  "postprocess_config.dataset.name": "'mpi3d_realistic'",
+  "postprocess_config.postprocess.name": "''",
+  "postprocess_config.postprocess.postprocess_fn": "@mean_representation",
+  "postprocess_config.postprocess.random_seed": "0",
+  "postprocess_results.elapsed_time": 9.849056720733643,
+  "postprocess_results.uuid": "c97d1eaf-645e-4d54-a474-3565fae36db7"
+}
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.06211983086852027
+factor_vae_metric: 0.3372
+sap_score: 0.003514285714285726
+mig: 0.006700521861037291
+irs: 0.26247651540133704
+
+
+##############################################################################################
+
+########## time: ##########
+
+date time: 20191001_051456
+
+elapsed time: 3401.3016967773438
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @dip_vae()
+dip_vae.lambda_od = 15.0
+dip_vae.lambda_d_factor = 150.0
+dip_vae.dip_type = 'i'
+
+########## model.gin: ##########
+vae_optimizer.learning_rate = 1e-4
+{
+  "train_config.AdamOptimizer.beta1": "0.9",
+  "train_config.AdamOptimizer.beta2": "0.999",
+  "train_config.AdamOptimizer.epsilon": "1e-08",
+  "train_config.AdamOptimizer.name": "'Adam'",
+  "train_config.AdamOptimizer.use_locking": "False",
+  "train_config.bernoulli_loss.subtract_true_image_entropy": "False",
+  "train_config.dataset.name": "'mpi3d_realistic'",
+  "train_config.decoder.decoder_fn": "@deconv_decoder",
+  "train_config.dip_vae.dip_type": "'i'",
+  "train_config.dip_vae.lambda_d_factor": "150.0",
+  "train_config.dip_vae.lambda_od": "15.0",
+  "train_config.encoder.encoder_fn": "@conv_encoder",
+  "train_config.encoder.num_latent": "10",
+  "train_config.export_as_tf_hub.drop_collections": "None",
+  "train_config.model.batch_size": "256",
+  "train_config.model.eval_steps": "1000",
+  "train_config.model.model": "@dip_vae()",
+  "train_config.model.model_num": "None",
+  "train_config.model.name": "''",
+  "train_config.model.random_seed": "0",
+  "train_config.model.training_steps": "20000",
+  "train_config.reconstruction_loss.activation": "'logits'",
+  "train_config.reconstruction_loss.loss_fn": "@bernoulli_loss",
+  "train_config.vae_optimizer.learning_rate": "0.0001",
+  "train_config.vae_optimizer.optimizer_fn": "@AdamOptimizer",
+  "train_results.elbo": -5626.5615234375,
+  "train_results.kl_loss": 10.109187126159668,
+  "train_results.loss": 5719.49267578125,
+  "train_results.reconstruction_loss": 5616.4501953125,
+  "train_results.regularizer": 103.04193115234375,
+  "train_results.global_step": 20000,
+  "train_results.elapsed_time": 3393.006154537201,
+  "train_results.uuid": "eaddf46f-b8df-4a4c-9bd7-d60e401b37dd",
+  "postprocess_config.dataset.name": "'mpi3d_realistic'",
+  "postprocess_config.postprocess.name": "''",
+  "postprocess_config.postprocess.postprocess_fn": "@mean_representation",
+  "postprocess_config.postprocess.random_seed": "0",
+  "postprocess_results.elapsed_time": 9.817450523376465,
+  "postprocess_results.uuid": "f3760f63-c4e9-4aa7-ac69-76b94dd353fd"
+}
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.06587828071843256
+factor_vae_metric: 0.3676
+sap_score: 0.008828571428571427
+mig: 0.024010976538776412
+irs: 0.2652908268234196
+
+
+##############################################################################################
+
+########## time: ##########
+
+date time: 20191001_061911
+
+elapsed time: 3585.991558790207
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @dip_vae()
+dip_vae.lambda_od = 20.0
+dip_vae.lambda_d_factor = 200.0
+dip_vae.dip_type = 'i'
+
+########## model.gin: ##########
+vae_optimizer.learning_rate = 1e-4
+{
+  "train_config.AdamOptimizer.beta1": "0.9",
+  "train_config.AdamOptimizer.beta2": "0.999",
+  "train_config.AdamOptimizer.epsilon": "1e-08",
+  "train_config.AdamOptimizer.name": "'Adam'",
+  "train_config.AdamOptimizer.use_locking": "False",
+  "train_config.bernoulli_loss.subtract_true_image_entropy": "False",
+  "train_config.dataset.name": "'mpi3d_realistic'",
+  "train_config.decoder.decoder_fn": "@deconv_decoder",
+  "train_config.dip_vae.dip_type": "'i'",
+  "train_config.dip_vae.lambda_d_factor": "200.0",
+  "train_config.dip_vae.lambda_od": "20.0",
+  "train_config.encoder.encoder_fn": "@conv_encoder",
+  "train_config.encoder.num_latent": "10",
+  "train_config.export_as_tf_hub.drop_collections": "None",
+  "train_config.model.batch_size": "256",
+  "train_config.model.eval_steps": "1000",
+  "train_config.model.model": "@dip_vae()",
+  "train_config.model.model_num": "None",
+  "train_config.model.name": "''",
+  "train_config.model.random_seed": "0",
+  "train_config.model.training_steps": "20000",
+  "train_config.reconstruction_loss.activation": "'logits'",
+  "train_config.reconstruction_loss.loss_fn": "@bernoulli_loss",
+  "train_config.vae_optimizer.learning_rate": "0.0001",
+  "train_config.vae_optimizer.optimizer_fn": "@AdamOptimizer",
+  "train_results.elbo": -5627.52978515625,
+  "train_results.kl_loss": 10.080816268920898,
+  "train_results.loss": 5791.54150390625,
+  "train_results.reconstruction_loss": 5617.44677734375,
+  "train_results.regularizer": 174.0929412841797,
+  "train_results.global_step": 20000,
+  "train_results.elapsed_time": 3577.6692752838135,
+  "train_results.uuid": "3aba5377-0160-4125-84ef-230cea904b4b",
+  "postprocess_config.dataset.name": "'mpi3d_realistic'",
+  "postprocess_config.postprocess.name": "''",
+  "postprocess_config.postprocess.postprocess_fn": "@mean_representation",
+  "postprocess_config.postprocess.random_seed": "0",
+  "postprocess_results.elapsed_time": 9.813734769821167,
+  "postprocess_results.uuid": "5c1c43ee-475b-492b-b7b4-e791297f0e85"
+}
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.06433219111314237
+factor_vae_metric: 0.3576
+sap_score: 0.003857142857142853
+mig: 0.012531133587625658
+irs: 0.25953492064038625
+
+
+##############################################################################################
+
+########## time: ##########
+
+date time: 20191001_072146
+
+elapsed time: 3489.002200603485
+
+########## gin_bindings: ##########
+
+dataset.name = 'mpi3d_realistic'
+model.model = @dip_vae()
+dip_vae.lambda_od = 8.0
+dip_vae.lambda_d_factor = 80.0
+dip_vae.dip_type = 'i'
+
+########## model.gin: ##########
+vae_optimizer.learning_rate = 5e-4
+{
+  "train_config.AdamOptimizer.beta1": "0.9",
+  "train_config.AdamOptimizer.beta2": "0.999",
+  "train_config.AdamOptimizer.epsilon": "1e-08",
+  "train_config.AdamOptimizer.name": "'Adam'",
+  "train_config.AdamOptimizer.use_locking": "False",
+  "train_config.bernoulli_loss.subtract_true_image_entropy": "False",
+  "train_config.dataset.name": "'mpi3d_realistic'",
+  "train_config.decoder.decoder_fn": "@deconv_decoder",
+  "train_config.dip_vae.dip_type": "'i'",
+  "train_config.dip_vae.lambda_d_factor": "80.0",
+  "train_config.dip_vae.lambda_od": "8.0",
+  "train_config.encoder.encoder_fn": "@conv_encoder",
+  "train_config.encoder.num_latent": "10",
+  "train_config.export_as_tf_hub.drop_collections": "None",
+  "train_config.model.batch_size": "256",
+  "train_config.model.eval_steps": "1000",
+  "train_config.model.model": "@dip_vae()",
+  "train_config.model.model_num": "None",
+  "train_config.model.name": "''",
+  "train_config.model.random_seed": "0",
+  "train_config.model.training_steps": "20000",
+  "train_config.reconstruction_loss.activation": "'logits'",
+  "train_config.reconstruction_loss.loss_fn": "@bernoulli_loss",
+  "train_config.vae_optimizer.learning_rate": "0.0005",
+  "train_config.vae_optimizer.optimizer_fn": "@AdamOptimizer",
+  "train_results.elbo": -5610.36083984375,
+  "train_results.kl_loss": 13.89762020111084,
+  "train_results.loss": 5632.61376953125,
+  "train_results.reconstruction_loss": 5596.466796875,
+  "train_results.regularizer": 36.14596176147461,
+  "train_results.global_step": 20000,
+  "train_results.elapsed_time": 3480.6963102817535,
+  "train_results.uuid": "69257c8c-32f8-40ec-8dac-bcd57671ed06",
+  "postprocess_config.dataset.name": "'mpi3d_realistic'",
+  "postprocess_config.postprocess.name": "''",
+  "postprocess_config.postprocess.postprocess_fn": "@mean_representation",
+  "postprocess_config.postprocess.random_seed": "0",
+  "postprocess_results.elapsed_time": 9.88703465461731,
+  "postprocess_results.uuid": "1c2a7fe9-3a79-4695-a06d-ddfc072195e0"
+}
+
+##################################################
+
+
+########## Final Score: ##########
+
+dci: 0.0879707218197954
+factor_vae_metric: 0.3544
+sap_score: 0.01031428571428572
+mig: 0.009361757707552227
+irs: 0.159198106371176
+

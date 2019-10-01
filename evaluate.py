@@ -49,7 +49,8 @@ def evaluate_with_gin(model_dir,
                       output_dir,
                       overwrite=False,
                       gin_config_files=None,
-                      gin_bindings=None):
+                      gin_bindings=None,
+                      eval_pytorch = False):
     """Evaluate a representation based on the provided gin configuration.
 
     This function will set the provided gin bindings, call the evaluate()
@@ -68,7 +69,7 @@ def evaluate_with_gin(model_dir,
     if gin_bindings is None:
         gin_bindings = []
     gin.parse_config_files_and_bindings(gin_config_files, gin_bindings)
-    evaluate(model_dir, output_dir, overwrite)
+    evaluate(model_dir, output_dir, overwrite, eval_pytorch = eval_pytorch)
     gin.clear_config()
 
 
@@ -79,7 +80,8 @@ def evaluate(model_dir,
              overwrite=False,
              evaluation_fn=gin.REQUIRED,
              random_seed=gin.REQUIRED,
-             name=""):
+             name="",
+             eval_pytorch = False):
     """Loads a representation TFHub module and computes disentanglement metrics.
 
     Args:
@@ -127,7 +129,11 @@ def evaluate(model_dir,
                 gin.bind_parameter("dataset.name", get_dataset_name())
         dataset = named_data.get_named_ground_truth_data()
 
-    if os.path.exists(os.path.join(model_dir, 'tfhub')):
+    eval_tf = True
+    if eval_pytorch and os.path.exists(os.path.join(model_dir, 'pytorch_model.pt')):
+        eval_tf = False
+
+    if os.path.exists(os.path.join(model_dir, 'tfhub')) and eval_tf:
         # Path to TFHub module of previously trained representation.
         module_path = os.path.join(model_dir, "tfhub")
         # Evaluate results with tensorflow

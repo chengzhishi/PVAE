@@ -41,11 +41,13 @@ import tensorflow as tf
 import gin.tf
 import json
 import numpy as np
-
+import argparse
 ##############################################################################
 # 0. Settings
 # By default, we save all the results in subdirectories of the following path.
 ##############################################################################
+#parser.add_argument('--pytorch', action='store_true', default=False,
+#                    help='enables CUDA training')
 base_path = os.getenv("AICROWD_OUTPUT_PATH","./scratch/shared")
 experiment_name = os.getenv("AICROWD_EVALUATION_NAME", "experiment_name")
 DATASET_NAME = "auto" 
@@ -85,6 +87,10 @@ expected_evaluation_metrics = [
     'mig',
     'irs'
 ]
+base_path = os.getenv("AICROWD_OUTPUT_PATH","./scratch/shared")
+experiment_name = os.getenv("AICROWD_EVALUATION_NAME", "experiment_name")
+base_path = os.getenv("AICROWD_OUTPUT_PATH","./scratch/shared")
+experiment_name = os.getenv("AICROWD_EVALUATION_NAME", "experiment_name")
 
 for gin_eval_config in evaluation_configs:
     metric_name = gin_eval_config.split("/")[-1].replace(".gin", "")

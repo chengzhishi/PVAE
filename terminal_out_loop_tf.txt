@@ -1,0 +1,787 @@
+nohup: ignoring input
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:518: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:519: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:520: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+WARNING: Logging before flag parsing goes to stderr.
+W0930 13:17:46.498535 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:34: The name tf.gfile.Open is deprecated. Please use tf.io.gfile.GFile instead.
+
+W0930 13:17:46.498774 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:34: The name tf.gfile.Exists is deprecated. Please use tf.io.gfile.exists instead.
+
+W0930 13:17:46.498899 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:43: The name tf.train.SessionRunHook is deprecated. Please use tf.estimator.SessionRunHook instead.
+
+W0930 13:17:46.782291 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:32: The name tf.train.exponential_decay is deprecated. Please use tf.compat.v1.train.exponential_decay instead.
+
+W0930 13:17:46.782447 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:33: The name tf.train.inverse_time_decay is deprecated. Please use tf.compat.v1.train.inverse_time_decay instead.
+
+W0930 13:17:46.782539 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:34: The name tf.train.natural_exp_decay is deprecated. Please use tf.compat.v1.train.natural_exp_decay instead.
+
+W0930 13:17:46.782623 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:35: The name tf.train.polynomial_decay is deprecated. Please use tf.compat.v1.train.polynomial_decay instead.
+
+W0930 13:17:46.782742 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:48: The name tf.losses.absolute_difference is deprecated. Please use tf.compat.v1.losses.absolute_difference instead.
+
+W0930 13:17:46.782854 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:50: The name tf.losses.hinge_loss is deprecated. Please use tf.compat.v1.losses.hinge_loss instead.
+
+W0930 13:17:46.782940 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:51: The name tf.losses.huber_loss is deprecated. Please use tf.compat.v1.losses.huber_loss instead.
+
+W0930 13:17:46.783021 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:52: The name tf.losses.log_loss is deprecated. Please use tf.compat.v1.losses.log_loss instead.
+
+W0930 13:17:46.783098 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:54: The name tf.losses.mean_pairwise_squared_error is deprecated. Please use tf.compat.v1.losses.mean_pairwise_squared_error instead.
+
+W0930 13:17:46.990610 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/train.py:89: The name tf.gfile.IsDirectory is deprecated. Please use tf.io.gfile.isdir instead.
+
+W0930 13:17:46.990794 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/train.py:91: The name tf.gfile.DeleteRecursively is deprecated. Please use tf.io.gfile.rmtree instead.
+
+W0930 13:18:35.429021 140234894264128 lazy_loader.py:50] 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+W0930 13:18:35.429396 140234894264128 estimator.py:1984] Estimator's model_fn (<bound method BaseVAE.model_fn of <disentanglement_lib.methods.unsupervised.vae.BetaTCVAE object at 0x7f8a7ae22510>>) includes params argument, but params are not passed to Estimator.
+W0930 13:18:35.430155 140234894264128 tpu_context.py:211] eval_on_tpu ignored because use_tpu is False.
+W0930 13:18:35.434828 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/training/training_util.py:236: Variable.initialized_value (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use Variable.read_value. Variables in 2.X are initialized automatically both in eager and graph (inside tf.defun) contexts.
+W0930 13:18:35.445766 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/data/ops/dataset_ops.py:494: py_func (from tensorflow.python.ops.script_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+tf.py_func is deprecated in TF V2. Instead, there are two
+    options available in V2.
+    - tf.py_function takes a python function which manipulates tf eager
+    tensors instead of numpy arrays. It's easy to convert a tf eager tensor to
+    an ndarray (just call tensor.numpy()) but having access to eager tensors
+    means `tf.py_function`s can use accelerators such as GPUs as well as
+    being differentiable using a gradient tape.
+    - tf.numpy_function maintains the semantics of the deprecated tf.py_func
+    (it is not differentiable, and manipulates numpy arrays). It drops the
+    stateful argument making all functions stateful.
+    
+W0930 13:18:35.463056 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/train.py:155: DatasetV1.make_one_shot_iterator (from tensorflow.python.data.ops.dataset_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `for ... in dataset:` to iterate over a dataset. If using `tf.estimator`, return the `Dataset` object directly from your input function. As a last resort, you can use `tf.compat.v1.data.make_one_shot_iterator(dataset)`.
+W0930 13:18:35.471156 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/shared/architectures.py:49: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+W0930 13:18:35.471456 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/shared/architectures.py:173: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0930 13:18:35.472625 140234894264128 deprecation.py:506] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+W0930 13:18:35.660052 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/shared/architectures.py:202: flatten (from tensorflow.python.layers.core) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.flatten instead.
+W0930 13:18:35.885292 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/shared/architectures.py:203: dense (from tensorflow.python.layers.core) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.dense instead.
+W0930 13:18:36.090751 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/gaussian_encoder_model.py:52: The name tf.random_normal is deprecated. Please use tf.random.normal instead.
+
+W0930 13:18:36.118296 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/shared/architectures.py:261: conv2d_transpose (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2DTranspose` instead.
+W0930 13:18:36.544593 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/ops/nn_impl.py:180: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+W0930 13:18:36.558218 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/vae.py:375: The name tf.log is deprecated. Please use tf.math.log instead.
+
+W0930 13:18:36.580931 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/vae.py:54: The name tf.get_collection is deprecated. Please use tf.compat.v1.get_collection instead.
+
+W0930 13:18:36.581019 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/vae.py:54: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+W0930 13:18:37.143106 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/vae.py:58: The name tf.summary.scalar is deprecated. Please use tf.compat.v1.summary.scalar instead.
+
+2019-09-30 13:18:37.437611: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-09-30 13:18:37.465366: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3691420000 Hz
+2019-09-30 13:18:37.465974: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55b35444b370 executing computations on platform Host. Devices:
+2019-09-30 13:18:37.466008: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-30 13:18:37.466227: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+2019-09-30 13:18:37.491469: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 13:18:37.491670: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 13:18:37.492506: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 13:18:37.493332: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 13:18:37.493541: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 13:18:37.494521: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 13:18:37.495258: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 13:18:37.497610: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 13:18:37.499218: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 13:18:37.499261: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 13:18:37.564645: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 13:18:37.564674: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 13:18:37.564680: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 13:18:37.566594: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11421 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 13:18:37.568117: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55b3555b1040 executing computations on platform CUDA. Devices:
+2019-09-30 13:18:37.568134: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GeForce GTX TITAN X, Compute Capability 5.2
+2019-09-30 13:18:38.316596: W tensorflow/compiler/jit/mark_for_compilation_pass.cc:1412] (One-time warning): Not using XLA:CPU for cluster because envvar TF_XLA_FLAGS=--tf_xla_cpu_global_jit was not set.  If you want XLA:CPU, either set that envvar, or use experimental_jit_scope to enable XLA:CPU.  To confirm that XLA is active, pass --vmodule=xla_compilation_cache=1 (as a proper command-line flag, not via TF_XLA_FLAGS) or set the envvar XLA_FLAGS=--xla_hlo_profile.
+2019-09-30 13:18:39.533393: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 13:18:39.819546: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+W0930 13:28:39.083928 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/training/saver.py:960: remove_checkpoint (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to delete files with this prefix.
+W0930 14:12:45.204273 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow_hub/saved_model_lib.py:110: build_tensor_info (from tensorflow.python.saved_model.utils_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+This function will only be available through the v1 compatibility library as tf.compat.v1.saved_model.utils.build_tensor_info or tf.compat.v1.saved_model.build_tensor_info.
+2019-09-30 14:12:46.050881: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:12:46.050940: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:12:46.050958: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:12:46.050973: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:12:46.050988: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:12:46.051002: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:12:46.051024: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:12:46.051040: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:12:46.051538: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:12:46.052000: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:12:46.052027: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:12:46.052044: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:12:46.052059: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:12:46.052073: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:12:46.052087: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:12:46.052101: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:12:46.052116: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:12:46.052607: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:12:46.052631: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 14:12:46.052637: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 14:12:46.052641: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 14:12:46.053187: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11421 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+W0930 14:12:46.552207 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/vae.py:129: The name tf.metrics.mean is deprecated. Please use tf.compat.v1.metrics.mean instead.
+
+2019-09-30 14:12:46.698365: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:12:46.698425: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:12:46.698442: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:12:46.698456: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:12:46.698471: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:12:46.698485: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:12:46.698500: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:12:46.698514: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:12:46.699015: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:12:46.699047: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 14:12:46.699054: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 14:12:46.699058: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 14:12:46.699594: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11421 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+W0930 14:12:46.699718 140234894264128 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+W0930 14:15:07.511081 140234894264128 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/utils/results.py:61: The name tf.gfile.MakeDirs is deprecated. Please use tf.io.gfile.makedirs instead.
+
+2019-09-30 14:15:16.259578: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:15:16.259640: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:15:16.259658: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:15:16.259674: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:15:16.259689: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:15:16.259704: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:15:16.259719: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:15:16.259734: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:15:16.260248: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:15:16.260273: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 14:15:16.260279: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 14:15:16.260283: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 14:15:16.260833: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11421 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 14:15:17.106963: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:15:17.107022: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:15:17.107040: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:15:17.107054: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:15:17.107069: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:15:17.107083: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:15:17.107108: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:15:17.107124: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:15:17.107621: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:15:17.107647: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 14:15:17.107653: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 14:15:17.107657: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 14:15:17.108191: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11421 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+Training Start...
+Training Progress : 0.0
+##################################Elapsed TIME##############################
+3440.5397255420685
+##################################Elapsed TIME##############################
+Training Progress : 0.9
+Written output to :  /data/cs618/scratch/shared/thelittlevaethatcould
+Training Progress : 1.0
+AIcrowd Submit
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:518: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:519: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:520: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+WARNING: Logging before flag parsing goes to stderr.
+W0930 14:15:19.261448 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:34: The name tf.gfile.Open is deprecated. Please use tf.io.gfile.GFile instead.
+
+W0930 14:15:19.261708 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:34: The name tf.gfile.Exists is deprecated. Please use tf.io.gfile.exists instead.
+
+W0930 14:15:19.261839 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:43: The name tf.train.SessionRunHook is deprecated. Please use tf.estimator.SessionRunHook instead.
+
+W0930 14:15:19.548158 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:32: The name tf.train.exponential_decay is deprecated. Please use tf.compat.v1.train.exponential_decay instead.
+
+W0930 14:15:19.548316 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:33: The name tf.train.inverse_time_decay is deprecated. Please use tf.compat.v1.train.inverse_time_decay instead.
+
+W0930 14:15:19.548413 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:34: The name tf.train.natural_exp_decay is deprecated. Please use tf.compat.v1.train.natural_exp_decay instead.
+
+W0930 14:15:19.548500 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:35: The name tf.train.polynomial_decay is deprecated. Please use tf.compat.v1.train.polynomial_decay instead.
+
+W0930 14:15:19.548609 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:48: The name tf.losses.absolute_difference is deprecated. Please use tf.compat.v1.losses.absolute_difference instead.
+
+W0930 14:15:19.548720 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:50: The name tf.losses.hinge_loss is deprecated. Please use tf.compat.v1.losses.hinge_loss instead.
+
+W0930 14:15:19.548801 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:51: The name tf.losses.huber_loss is deprecated. Please use tf.compat.v1.losses.huber_loss instead.
+
+W0930 14:15:19.548885 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:52: The name tf.losses.log_loss is deprecated. Please use tf.compat.v1.losses.log_loss instead.
+
+W0930 14:15:19.548965 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:54: The name tf.losses.mean_pairwise_squared_error is deprecated. Please use tf.compat.v1.losses.mean_pairwise_squared_error instead.
+
+W0930 14:15:19.952987 140131936024384 deprecation_wrapper.py:119] From /homes/cs618/tf_stage2/neurips2019_disentanglement_challenge_starter_kit/evaluate.py:102: The name tf.gfile.IsDirectory is deprecated. Please use tf.io.gfile.isdir instead.
+
+W0930 14:15:19.953319 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/utils/results.py:166: The name tf.gfile.GFile is deprecated. Please use tf.io.gfile.GFile instead.
+
+W0930 14:15:28.580187 140131936024384 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/ops/array_ops.py:1354: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2019-09-30 14:15:28.638428: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+2019-09-30 14:15:28.654874: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:15:28.654919: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:15:28.654944: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:15:28.654963: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:15:28.654981: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:15:28.655965: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:15:28.656000: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:15:28.658272: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:15:28.659837: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:15:28.660107: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-09-30 14:15:28.689358: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3691420000 Hz
+2019-09-30 14:15:28.690306: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55a3a1d444b0 executing computations on platform Host. Devices:
+2019-09-30 14:15:28.690341: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-30 14:15:28.692112: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:15:28.692175: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:15:28.692214: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:15:28.692243: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:15:28.692270: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:15:28.692297: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:15:28.692325: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:15:28.692352: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:15:28.695971: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:15:28.696049: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:15:30.573275: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 14:15:30.573302: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 14:15:30.573308: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 14:15:30.575115: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11107 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 14:15:30.576438: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55a3a6f90fb0 executing computations on platform CUDA. Devices:
+2019-09-30 14:15:30.576452: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GeForce GTX TITAN X, Compute Capability 5.2
+2019-09-30 14:15:31.281221: W tensorflow/compiler/jit/mark_for_compilation_pass.cc:1412] (One-time warning): Not using XLA:CPU for cluster because envvar TF_XLA_FLAGS=--tf_xla_cpu_global_jit was not set.  If you want XLA:CPU, either set that envvar, or use experimental_jit_scope to enable XLA:CPU.  To confirm that XLA is active, pass --vmodule=xla_compilation_cache=1 (as a proper command-line flag, not via TF_XLA_FLAGS) or set the envvar XLA_FLAGS=--xla_hlo_profile.
+2019-09-30 14:15:31.391196: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:15:31.561395: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+W0930 14:17:13.828899 140131936024384 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/utils/results.py:100: The name tf.gfile.MakeDirs is deprecated. Please use tf.io.gfile.makedirs instead.
+
+2019-09-30 14:17:22.551136: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:17:22.551192: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:17:22.551210: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:17:22.551223: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:17:22.551237: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:17:22.551251: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:17:22.551265: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:17:22.551286: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:17:22.552079: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:17:22.552103: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 14:17:22.552109: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 14:17:22.552114: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 14:17:22.552907: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11107 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 14:19:03.907665: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:19:03.907722: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:19:03.907741: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:19:03.907755: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:19:03.907768: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:19:03.907782: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:19:03.907796: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:19:03.907810: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:19:03.908321: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:19:03.908346: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 14:19:03.908352: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 14:19:03.908356: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 14:19:03.908904: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11107 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 14:19:15.090266: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:19:15.090323: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:19:15.090341: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:19:15.090354: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:19:15.090368: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:19:15.090382: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:19:15.090396: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:19:15.090410: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:19:15.090931: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:19:15.090956: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 14:19:15.090962: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 14:19:15.090967: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 14:19:15.091515: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11107 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 14:19:29.898740: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:19:29.898797: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:19:29.898814: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:19:29.898827: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:19:29.898841: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:19:29.898855: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:19:29.898868: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:19:29.898883: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:19:29.899396: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:19:29.899421: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 14:19:29.899427: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 14:19:29.899431: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 14:19:29.899980: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11107 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+Evaluating Experiment 'thelittlevaethatcould' from /data/cs618/scratch/shared on dataset mpi3d_realistic
+Evaluating Metric : dci
+Evaluating Metric : factor_vae_metric
+Evaluating Metric : mig
+Evaluating Metric : sap_score
+Evaluating Metric : irs
+Final Scores :  {'dci': 0.2306662737515588, 'factor_vae_metric': 0.3498, 'sap_score': 0.08357142857142862, 'mig': 0.14324641202950142, 'irs': 0.5668798992012529}
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:518: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:519: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:520: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+WARNING: Logging before flag parsing goes to stderr.
+W0930 14:19:34.126264 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:34: The name tf.gfile.Open is deprecated. Please use tf.io.gfile.GFile instead.
+
+W0930 14:19:34.126493 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:34: The name tf.gfile.Exists is deprecated. Please use tf.io.gfile.exists instead.
+
+W0930 14:19:34.126612 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:43: The name tf.train.SessionRunHook is deprecated. Please use tf.estimator.SessionRunHook instead.
+
+W0930 14:19:34.408053 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:32: The name tf.train.exponential_decay is deprecated. Please use tf.compat.v1.train.exponential_decay instead.
+
+W0930 14:19:34.408215 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:33: The name tf.train.inverse_time_decay is deprecated. Please use tf.compat.v1.train.inverse_time_decay instead.
+
+W0930 14:19:34.408309 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:34: The name tf.train.natural_exp_decay is deprecated. Please use tf.compat.v1.train.natural_exp_decay instead.
+
+W0930 14:19:34.408393 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:35: The name tf.train.polynomial_decay is deprecated. Please use tf.compat.v1.train.polynomial_decay instead.
+
+W0930 14:19:34.408510 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:48: The name tf.losses.absolute_difference is deprecated. Please use tf.compat.v1.losses.absolute_difference instead.
+
+W0930 14:19:34.408624 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:50: The name tf.losses.hinge_loss is deprecated. Please use tf.compat.v1.losses.hinge_loss instead.
+
+W0930 14:19:34.408710 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:51: The name tf.losses.huber_loss is deprecated. Please use tf.compat.v1.losses.huber_loss instead.
+
+W0930 14:19:34.408791 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:52: The name tf.losses.log_loss is deprecated. Please use tf.compat.v1.losses.log_loss instead.
+
+W0930 14:19:34.408868 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:54: The name tf.losses.mean_pairwise_squared_error is deprecated. Please use tf.compat.v1.losses.mean_pairwise_squared_error instead.
+
+W0930 14:19:34.601783 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/train.py:89: The name tf.gfile.IsDirectory is deprecated. Please use tf.io.gfile.isdir instead.
+
+W0930 14:19:34.601949 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/train.py:91: The name tf.gfile.DeleteRecursively is deprecated. Please use tf.io.gfile.rmtree instead.
+
+W0930 14:19:42.864338 139755344959296 lazy_loader.py:50] 
+The TensorFlow contrib module will not be included in TensorFlow 2.0.
+For more information, please see:
+  * https://github.com/tensorflow/community/blob/master/rfcs/20180907-contrib-sunset.md
+  * https://github.com/tensorflow/addons
+  * https://github.com/tensorflow/io (for I/O related ops)
+If you depend on functionality not listed there, please file an issue.
+
+W0930 14:19:42.864663 139755344959296 estimator.py:1984] Estimator's model_fn (<bound method BaseVAE.model_fn of <disentanglement_lib.methods.unsupervised.vae.BetaTCVAE object at 0x7f1acce99a10>>) includes params argument, but params are not passed to Estimator.
+W0930 14:19:42.865365 139755344959296 tpu_context.py:211] eval_on_tpu ignored because use_tpu is False.
+W0930 14:19:42.869521 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/training/training_util.py:236: Variable.initialized_value (from tensorflow.python.ops.variables) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use Variable.read_value. Variables in 2.X are initialized automatically both in eager and graph (inside tf.defun) contexts.
+W0930 14:19:42.879300 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/data/ops/dataset_ops.py:494: py_func (from tensorflow.python.ops.script_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+tf.py_func is deprecated in TF V2. Instead, there are two
+    options available in V2.
+    - tf.py_function takes a python function which manipulates tf eager
+    tensors instead of numpy arrays. It's easy to convert a tf eager tensor to
+    an ndarray (just call tensor.numpy()) but having access to eager tensors
+    means `tf.py_function`s can use accelerators such as GPUs as well as
+    being differentiable using a gradient tape.
+    - tf.numpy_function maintains the semantics of the deprecated tf.py_func
+    (it is not differentiable, and manipulates numpy arrays). It drops the
+    stateful argument making all functions stateful.
+    
+W0930 14:19:42.895019 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/train.py:155: DatasetV1.make_one_shot_iterator (from tensorflow.python.data.ops.dataset_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `for ... in dataset:` to iterate over a dataset. If using `tf.estimator`, return the `Dataset` object directly from your input function. As a last resort, you can use `tf.compat.v1.data.make_one_shot_iterator(dataset)`.
+W0930 14:19:42.902268 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/shared/architectures.py:49: The name tf.variable_scope is deprecated. Please use tf.compat.v1.variable_scope instead.
+
+W0930 14:19:42.902540 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/shared/architectures.py:173: conv2d (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2D` instead.
+W0930 14:19:42.903600 139755344959296 deprecation.py:506] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+W0930 14:19:43.077956 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/shared/architectures.py:202: flatten (from tensorflow.python.layers.core) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.flatten instead.
+W0930 14:19:43.288794 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/shared/architectures.py:203: dense (from tensorflow.python.layers.core) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.dense instead.
+W0930 14:19:43.498663 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/gaussian_encoder_model.py:52: The name tf.random_normal is deprecated. Please use tf.random.normal instead.
+
+W0930 14:19:43.525755 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/shared/architectures.py:261: conv2d_transpose (from tensorflow.python.layers.convolutional) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use `tf.keras.layers.Conv2DTranspose` instead.
+W0930 14:19:43.950176 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/ops/nn_impl.py:180: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+W0930 14:19:43.963565 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/vae.py:375: The name tf.log is deprecated. Please use tf.math.log instead.
+
+W0930 14:19:43.985871 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/vae.py:54: The name tf.get_collection is deprecated. Please use tf.compat.v1.get_collection instead.
+
+W0930 14:19:43.985958 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/vae.py:54: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+W0930 14:19:44.541305 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/vae.py:58: The name tf.summary.scalar is deprecated. Please use tf.compat.v1.summary.scalar instead.
+
+2019-09-30 14:19:44.819247: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-09-30 14:19:44.841376: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3691420000 Hz
+2019-09-30 14:19:44.842000: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55bf7aeaed50 executing computations on platform Host. Devices:
+2019-09-30 14:19:44.842052: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-30 14:19:44.842269: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+2019-09-30 14:19:44.873493: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 14:19:44.873695: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:19:44.874516: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:19:44.875328: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 14:19:44.875537: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 14:19:44.876506: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 14:19:44.877280: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 14:19:44.879630: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 14:19:44.881241: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 14:19:44.881279: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 14:19:44.946264: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 14:19:44.946295: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 14:19:44.946307: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 14:19:44.948168: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11421 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 14:19:44.949826: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55bf7c073ce0 executing computations on platform CUDA. Devices:
+2019-09-30 14:19:44.949863: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GeForce GTX TITAN X, Compute Capability 5.2
+2019-09-30 14:19:45.686687: W tensorflow/compiler/jit/mark_for_compilation_pass.cc:1412] (One-time warning): Not using XLA:CPU for cluster because envvar TF_XLA_FLAGS=--tf_xla_cpu_global_jit was not set.  If you want XLA:CPU, either set that envvar, or use experimental_jit_scope to enable XLA:CPU.  To confirm that XLA is active, pass --vmodule=xla_compilation_cache=1 (as a proper command-line flag, not via TF_XLA_FLAGS) or set the envvar XLA_FLAGS=--xla_hlo_profile.
+2019-09-30 14:19:46.935052: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 14:19:47.235000: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+W0930 14:29:46.515616 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/training/saver.py:960: remove_checkpoint (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to delete files with this prefix.
+W0930 15:14:41.692562 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow_hub/saved_model_lib.py:110: build_tensor_info (from tensorflow.python.saved_model.utils_impl) is deprecated and will be removed in a future version.
+Instructions for updating:
+This function will only be available through the v1 compatibility library as tf.compat.v1.saved_model.utils.build_tensor_info or tf.compat.v1.saved_model.build_tensor_info.
+2019-09-30 15:14:42.527597: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:14:42.527656: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:14:42.527674: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:14:42.527689: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:14:42.527703: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:14:42.527719: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:14:42.527734: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:14:42.527749: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:14:42.528242: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:14:42.528693: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:14:42.528721: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:14:42.528737: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:14:42.528758: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:14:42.528774: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:14:42.528788: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:14:42.528803: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:14:42.528818: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:14:42.529325: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:14:42.529350: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 15:14:42.529355: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 15:14:42.529359: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 15:14:42.529890: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11421 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+W0930 15:14:43.048843 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/methods/unsupervised/vae.py:129: The name tf.metrics.mean is deprecated. Please use tf.compat.v1.metrics.mean instead.
+
+2019-09-30 15:14:43.192367: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:14:43.192425: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:14:43.192443: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:14:43.192457: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:14:43.192472: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:14:43.192487: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:14:43.192502: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:14:43.192517: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:14:43.193015: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:14:43.193049: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 15:14:43.193056: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 15:14:43.193061: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 15:14:43.193599: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11421 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+W0930 15:14:43.193717 139755344959296 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/training/saver.py:1276: checkpoint_exists (from tensorflow.python.training.checkpoint_management) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use standard file APIs to check for files with this prefix.
+W0930 15:17:15.707449 139755344959296 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/utils/results.py:61: The name tf.gfile.MakeDirs is deprecated. Please use tf.io.gfile.makedirs instead.
+
+2019-09-30 15:17:24.458968: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:17:24.459028: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:17:24.459046: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:17:24.459061: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:17:24.459076: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:17:24.459091: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:17:24.459106: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:17:24.459121: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:17:24.459617: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:17:24.459642: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 15:17:24.459648: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 15:17:24.459652: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 15:17:24.460187: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11421 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 15:17:25.299159: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:17:25.299218: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:17:25.299237: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:17:25.299252: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:17:25.299267: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:17:25.299282: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:17:25.299297: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:17:25.299312: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:17:25.299809: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:17:25.299834: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 15:17:25.299840: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 15:17:25.299844: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 15:17:25.300379: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11421 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+Training Start...
+Training Progress : 0.0
+##################################Elapsed TIME##############################
+3461.1152839660645
+##################################Elapsed TIME##############################
+Training Progress : 0.9
+Written output to :  /data/cs618/scratch/shared/thelittlevaethatcould
+Training Progress : 1.0
+AIcrowd Submit
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:516: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:517: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:518: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:519: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:520: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/framework/dtypes.py:525: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:541: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint8 = np.dtype([("qint8", np.int8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:542: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint8 = np.dtype([("quint8", np.uint8, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:543: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint16 = np.dtype([("qint16", np.int16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:544: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_quint16 = np.dtype([("quint16", np.uint16, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:545: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  _np_qint32 = np.dtype([("qint32", np.int32, 1)])
+/data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py:550: FutureWarning: Passing (type, 1) or '1type' as a synonym of type is deprecated; in a future version of numpy, it will be understood as (type, (1,)) / '(1,)type'.
+  np_resource = np.dtype([("resource", np.ubyte, 1)])
+WARNING: Logging before flag parsing goes to stderr.
+W0930 15:17:27.442306 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:34: The name tf.gfile.Open is deprecated. Please use tf.io.gfile.GFile instead.
+
+W0930 15:17:27.442545 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:34: The name tf.gfile.Exists is deprecated. Please use tf.io.gfile.exists instead.
+
+W0930 15:17:27.442660 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/utils.py:43: The name tf.train.SessionRunHook is deprecated. Please use tf.estimator.SessionRunHook instead.
+
+W0930 15:17:27.722910 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:32: The name tf.train.exponential_decay is deprecated. Please use tf.compat.v1.train.exponential_decay instead.
+
+W0930 15:17:27.723069 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:33: The name tf.train.inverse_time_decay is deprecated. Please use tf.compat.v1.train.inverse_time_decay instead.
+
+W0930 15:17:27.723166 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:34: The name tf.train.natural_exp_decay is deprecated. Please use tf.compat.v1.train.natural_exp_decay instead.
+
+W0930 15:17:27.723255 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:35: The name tf.train.polynomial_decay is deprecated. Please use tf.compat.v1.train.polynomial_decay instead.
+
+W0930 15:17:27.723365 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:48: The name tf.losses.absolute_difference is deprecated. Please use tf.compat.v1.losses.absolute_difference instead.
+
+W0930 15:17:27.723478 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:50: The name tf.losses.hinge_loss is deprecated. Please use tf.compat.v1.losses.hinge_loss instead.
+
+W0930 15:17:27.723561 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:51: The name tf.losses.huber_loss is deprecated. Please use tf.compat.v1.losses.huber_loss instead.
+
+W0930 15:17:27.723644 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:52: The name tf.losses.log_loss is deprecated. Please use tf.compat.v1.losses.log_loss instead.
+
+W0930 15:17:27.723724 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/gin/tf/external_configurables.py:54: The name tf.losses.mean_pairwise_squared_error is deprecated. Please use tf.compat.v1.losses.mean_pairwise_squared_error instead.
+
+W0930 15:17:28.066989 139870111749952 deprecation_wrapper.py:119] From /homes/cs618/tf_stage2/neurips2019_disentanglement_challenge_starter_kit/evaluate.py:102: The name tf.gfile.IsDirectory is deprecated. Please use tf.io.gfile.isdir instead.
+
+W0930 15:17:28.067189 139870111749952 deprecation_wrapper.py:119] From /homes/cs618/tf_stage2/neurips2019_disentanglement_challenge_starter_kit/evaluate.py:104: The name tf.gfile.DeleteRecursively is deprecated. Please use tf.io.gfile.rmtree instead.
+
+W0930 15:17:28.067759 139870111749952 deprecation_wrapper.py:119] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/disentanglement_lib/utils/results.py:166: The name tf.gfile.GFile is deprecated. Please use tf.io.gfile.GFile instead.
+
+W0930 15:17:36.650496 139870111749952 deprecation.py:323] From /data/ancs18[D[D6[C18/anaconda3/envs/NIPS/lib/python3.7/site-packages/tensorflow/python/ops/array_ops.py:1354: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+2019-09-30 15:17:36.709251: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcuda.so.1
+2019-09-30 15:17:36.725417: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:17:36.725460: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:17:36.725484: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:17:36.725502: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:17:36.725521: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:17:36.726512: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:17:36.726546: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:17:36.728834: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:17:36.730451: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:17:36.730724: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-09-30 15:17:36.753278: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 3691420000 Hz
+2019-09-30 15:17:36.753884: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55b3fb87d4b0 executing computations on platform Host. Devices:
+2019-09-30 15:17:36.753925: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): <undefined>, <undefined>
+2019-09-30 15:17:36.755917: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:17:36.755995: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:17:36.756033: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:17:36.756066: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:17:36.756098: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:17:36.756132: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:17:36.756165: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:17:36.756211: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:17:36.759967: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:17:36.760046: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:17:38.650728: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 15:17:38.650761: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 15:17:38.650767: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 15:17:38.652582: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11107 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 15:17:38.653981: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x55b400aca490 executing computations on platform CUDA. Devices:
+2019-09-30 15:17:38.653995: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): GeForce GTX TITAN X, Compute Capability 5.2
+2019-09-30 15:17:39.364751: W tensorflow/compiler/jit/mark_for_compilation_pass.cc:1412] (One-time warning): Not using XLA:CPU for cluster because envvar TF_XLA_FLAGS=--tf_xla_cpu_global_jit was not set.  If you want XLA:CPU, either set that envvar, or use experimental_jit_scope to enable XLA:CPU.  To confirm that XLA is active, pass --vmodule=xla_compilation_cache=1 (as a proper command-line flag, not via TF_XLA_FLAGS) or set the envvar XLA_FLAGS=--xla_hlo_profile.
+2019-09-30 15:17:39.474466: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:17:39.629480: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:19:27.183677: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:19:27.183736: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:19:27.183754: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:19:27.183768: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:19:27.183781: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:19:27.183796: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:19:27.183809: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:19:27.183823: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:19:27.184618: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:19:27.184642: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 15:19:27.184648: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 15:19:27.184653: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 15:19:27.185430: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11107 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 15:21:08.488196: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:21:08.488256: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:21:08.488274: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:21:08.488288: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:21:08.488301: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:21:08.488316: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:21:08.488330: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:21:08.488344: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:21:08.488855: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:21:08.488880: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 15:21:08.488886: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 15:21:08.488890: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 15:21:08.489450: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11107 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 15:21:19.517436: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:21:19.517492: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:21:19.517510: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:21:19.517524: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:21:19.517537: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:21:19.517552: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:21:19.517566: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:21:19.517580: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:21:19.518090: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:21:19.518115: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 15:21:19.518121: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 15:21:19.518126: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 15:21:19.518671: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11107 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+2019-09-30 15:21:34.439153: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1640] Found device 0 with properties: 
+name: GeForce GTX TITAN X major: 5 minor: 2 memoryClockRate(GHz): 1.076
+pciBusID: 0000:03:00.0
+2019-09-30 15:21:34.439214: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudart.so.10.0
+2019-09-30 15:21:34.439231: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcublas.so.10.0
+2019-09-30 15:21:34.439245: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcufft.so.10.0
+2019-09-30 15:21:34.439258: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcurand.so.10.0
+2019-09-30 15:21:34.439273: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusolver.so.10.0
+2019-09-30 15:21:34.439287: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcusparse.so.10.0
+2019-09-30 15:21:34.439301: I tensorflow/stream_executor/platform/default/dso_loader.cc:42] Successfully opened dynamic library libcudnn.so.7
+2019-09-30 15:21:34.439812: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1763] Adding visible gpu devices: 0
+2019-09-30 15:21:34.439837: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1181] Device interconnect StreamExecutor with strength 1 edge matrix:
+2019-09-30 15:21:34.439843: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1187]      0 
+2019-09-30 15:21:34.439847: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1200] 0:   N 
+2019-09-30 15:21:34.440393: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1326] Created TensorFlow device (/job:localhost/replica:0/task:0/device:GPU:0 with 11107 MB memory) -> physical GPU (device: 0, name: GeForce GTX TITAN X, pci bus id: 0000:03:00.0, compute capability: 5.2)
+Evaluating Experiment 'thelittlevaethatcould' from /data/cs618/scratch/shared on dataset mpi3d_realistic
+Evaluating Metric : dci
+Evaluating Metric : factor_vae_metric
+Evaluating Metric : mig
+Evaluating Metric : sap_score
+Evaluating Metric : irs
+Final Scores :  {'dci': 0.12627313370779775, 'factor_vae_metric': 0.2348, 'sap_score': 0.0098857142857143, 'mig': 0.06496975035037558, 'irs': 0.5280962099412269}

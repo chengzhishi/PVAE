@@ -1,7 +1,6 @@
 import tensorflow as tf
 import math
 from tensorflow.keras.layers import Layer
-import numpy as np
 
 limit_a, limit_b, epsilon = -.1, 1.1, 1e-6
 
@@ -9,7 +8,7 @@ limit_a, limit_b, epsilon = -.1, 1.1, 1e-6
 class L0Pair(Layer):
     """Implementation of L0 regularization for the input units of a fully connected layer"""
 
-    def __init__(self, in_features, out_features, bias=True, weight_decay=0.01, droprate_init=0.2, temperature=1. / 20.,
+    def __init__(self, in_features, out_features, bias=True, weight_decay=1., droprate_init=0.5, temperature=1. / 20.,
                  lamba=1., local_rep=False, **kwargs):
         """
         :param in_features: Input dimensionality
@@ -30,29 +29,23 @@ class L0Pair(Layer):
         self.lamba = lamba
         self.use_bias = False
         self.local_rep = local_rep
-        self.reg_record = tf.zeros([1])
-        self.mask_record = tf.zeros([1])
-        self.global_step = 0
         if bias:
             self.use_bias = True
-        # self.global_step = tf.Variable(0, trainable=False)
+
         #     def build(self):
-        self.mask = tf.stop_gradient(tf.zeros(out_features))
+        self.mask = tf.stop_gradient(tf.zeros(1, out_features))
         self.mean_weights = tf.get_variable("mean_weights", shape=[self.in_features, self.out_features],
                                             initializer=tf.initializers.he_normal())
         self.var_weights = tf.get_variable("var_weights", shape=[self.in_features, self.out_features],
                                            initializer=tf.initializers.he_normal())
-        # self.step_count = tf.zeros([1])
         weight_initer = tf.truncated_normal_initializer(
             mean=math.log(1 - self.droprate_init) - math.log(self.droprate_init), stddev=0.01)
         self.qz_loga = tf.get_variable("qz_loga", dtype=tf.float32, shape=[self.out_features],
                                        initializer=weight_initer)
-
         if self.use_bias:
-            self.mean_bias = tf.get_variable(name="mean_bias", shape=[self.out_features],
-                                             initializer=tf.initializers.zeros())
-            self.var_bias = tf.get_variable(name="var_bias", shape=[self.out_features],
-                                            initializer=tf.initializers.zeros())
+            bias_initer = tf.constant(0., shape=[self.out_features], dtype=tf.float32)
+            self.mean_bias = tf.get_variable(name="mean_bias", dtype=tf.float32, initializer=bias_initer)
+            self.var_bias = tf.get_variable(name="var_bias", dtype=tf.float32, initializer=bias_initer)
 
     def constrain_parameters(self, **kwargs):
         clipped_value = tf.clip_by_value(self.qz_loga, math.log(1e-2), math.log(1e2))
@@ -80,13 +73,11 @@ class L0Pair(Layer):
         return logpw + logpb
 
     def regularization(self):
-        reg = self._reg_w()/50000
-        # tf.summary.scalar('L0 Regularization', reg)
-        return reg
+        return self._reg_w()
 
     def get_eps(self, size):
         """Uniform random numbers for the concrete distribution"""
-        eps = tf.random_uniform(size, epsilon, 1 - epsilon)
+        eps = tf.Variable(tf.random.uniform(size, epsilon, 1 - epsilon))
         return eps
 
     def tanh_hard(self, x):
@@ -96,29 +87,24 @@ class L0Pair(Layer):
     def sample_mask(self):
         z = self.quantile_concrete(self.tanh_hard(0.8 * self.get_eps([self.out_features]) + 0.1))
         mask = self.tanh_hard(z)
-        # tf.summary.scalar('mask count', tf.reduce_sum(mask))
         return tf.reshape(mask, [1, self.out_features])
 
-    def __call__(self, input):
-        # self.step_count = self.step_count + tf.ones([1])
-        # sess = tf.get_default_session()
-        # train_summary = tf.summary.merge_all()
-        # train_writer = tf.summary.FileWriter('./log/', sess.graph)
-        # # summary_writer = tf.train.SummaryWriter(, sess.graph)
-        # train_writer.add_summary(train_summary, self.step_count)
-        mask = self.sample_mask()
-        self.mask = mask
-        mean = tf.matmul(input, self.mean_weights) * mask
-        var = tf.matmul(input, self.var_weights) * mask
+    def call(self, input):
+        if tf.reduce_sum(self.mask) == 0:
+            z = self.sample_mask()
+        else:
+            z = self.mask
+
+        mean = tf.matmul(input, self.mean_weights)
+        mean = mean * z
+        var = tf.matmul(input, self.var_weights)
+        var = var * z
+
         if self.use_bias:
             mean = tf.add(mean, self.mean_bias)
             var = tf.add(var, self.var_bias)
-        var = tf.clip_by_value(var, 1e-6, tf.float32.max)
-        # if self.global_step//1000 == 0:
-        #     tf.summary.scalar("Regularization"+str(self.global_step//1000), self.regularization())
-        #     tf.summary.scalar("Mask Sum"+str(self.global_step//1000), self.sample_mask())
-        # self.global_step += 1
-        return mean, var, self.regularization(), self.sample_mask()
+        var[var <= 0.] = torch.tensor(1e-6)
+        return mean, var
 
     def __repr__(self):
         s = ('{name}({in_features} -> 2*{out_features}, droprate_init={droprate_init}, '

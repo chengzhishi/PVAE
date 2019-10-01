@@ -35,13 +35,13 @@ import aicrowd_helpers
 import math
 import time
 import L0layer
-import math
 from disentanglement_lib.methods.shared import architectures  # pylint: disable=unused-import
 from disentanglement_lib.methods.shared import losses  # pylint: disable=unused-import
 from disentanglement_lib.methods.shared import optimizers  # pylint: disable=unused-import
 from disentanglement_lib.methods.unsupervised import gaussian_encoder_model
 from six.moves import range
 from six.moves import zip
+from hvae import *
 
 # 0. Settings
 # ------------------------------------------------------------------------------
@@ -152,12 +152,7 @@ def regularize_diag_off_diag_dip(covariance_matrix, lambda_od, lambda_d):
 ########################################################################
 aicrowd_helpers.execution_start()
 
-def compute_gaussian_kl(z_mean, z_logvar, mask):
-  """Compute KL divergence between input Gaussian and Standard Normal."""
-  return tf.reduce_mean(
-      0.5 * tf.reduce_sum(
-          (tf.square(z_mean) + tf.exp(z_logvar) - z_logvar - 1)*mask, [1]),
-      name="kl_loss")
+
 
 # Train a custom VAE model.
 @gin.configurable("L0BetaTCVAE")
@@ -174,6 +169,13 @@ class L0BetaTCVAE(vae.BaseVAE):
       beta: Hyperparameter total correlation.
     """
     self.beta = beta
+
+  def compute_gaussian_kl(self, z_mean, z_logvar, mask):
+      """Compute KL divergence between input Gaussian and Standard Normal."""
+      return tf.reduce_mean(
+          0.5 * tf.reduce_sum(
+              (tf.square(z_mean) + tf.exp(z_logvar) - z_logvar - 1) * mask, [1]),
+          name="kl_loss")
 
   def model_fn(self, features, labels, mode, params):
     """TPUEstimator compatible model function."""
@@ -293,6 +295,7 @@ class DIPVAE(vae.BaseVAE):
 #     "DIPVAE.lambda_d_factor = 20."
 # ]
 
+
 @gin.configurable("lconv_encoder", whitelist=[])
 def lconv_encoder(input_tensor, num_latent, is_training=True):
   """Convolutional encoder used in beta-VAE paper for the chairs data.
@@ -361,9 +364,182 @@ def lconv_encoder(input_tensor, num_latent, is_training=True):
   # log_var = tf.layers.dense(e5, num_latent, activation=None, name="log_var")
   return means, log_var, regularization, mask
 
+
+def gaussian_log_density(samples, mean, log_var):
+  pi = tf.constant(math.pi)
+  normalization = tf.log(2. * pi)
+  inv_sigma = tf.exp(-log_var)
+  tmp = (samples - mean)
+  return -0.5 * (tmp * tmp * inv_sigma + log_var + normalization)
+
+
+def total_correlation(z, z_mean, z_logvar):
+  """Estimate of total correlation on a batch.
+  We need to compute the expectation over a batch of: E_j [log(q(z(x_j))) -
+  log(prod_l q(z(x_j)_l))]. We ignore the constants as they do not matter
+  for the minimization. The constant should be equal to (num_latents - 1) *
+  log(batch_size * dataset_size)
+  Args:
+    z: [batch_size, num_latents]-tensor with sampled representation.
+    z_mean: [batch_size, num_latents]-tensor with mean of the encoder.
+    z_logvar: [batch_size, num_latents]-tensor with log variance of the encoder.
+  Returns:
+    Total correlation estimated on a batch.
+  """
+  # Compute log(q(z(x_j)|x_i)) for every sample in the batch, which is a
+  # tensor of size [batch_size, batch_size, num_latents]. In the following
+  # comments, [batch_size, batch_size, num_latents] are indexed by [j, i, l].
+  log_qz_prob = gaussian_log_density(
+      tf.expand_dims(z, 1), tf.expand_dims(z_mean, 0),
+      tf.expand_dims(z_logvar, 0))
+  # Compute log prod_l p(z(x_j)_l) = sum_l(log(sum_i(q(z(z_j)_l|x_i)))
+  # + constant) for each sample in the batch, which is a vector of size
+  # [batch_size,].
+  log_qz_product = tf.reduce_sum(
+      tf.reduce_logsumexp(log_qz_prob, axis=1, keepdims=False),
+      axis=1,
+      keepdims=False)
+  # Compute log(q(z(x_j))) as log(sum_i(q(z(x_j)|x_i))) + constant =
+  # log(sum_i(prod_l q(z(x_j)_l|x_i))) + constant.
+  log_qz = tf.reduce_logsumexp(
+      tf.reduce_sum(log_qz_prob, axis=2, keepdims=False),
+      axis=1,
+      keepdims=False)
+  return tf.reduce_mean(log_qz - log_qz_product)
+
+@gin.configurable("h_encoder", whitelist=[])
+def h_encoder(input_tensor, num_latent, is_training=False):
+  """Convolutional encoder used in beta-VAE paper for the chairs data.
+  Based on row 3 of Table 1 on page 13 of "beta-VAE: Learning Basic Visual
+  Concepts with a Constrained Variational Framework"
+  (https://openreview.net/forum?id=Sy2fzU9gl)
+  Args:
+    input_tensor: Input tensor of shape (batch_size, 64, 64, num_channels) to
+      build encoder on.
+    num_latent: Number of latent variables to output.
+    is_training: Whether or not the graph is built for training (UNUSED).
+  Returns:
+    means: Output tensor of shape (batch_size, num_latent) with latent variable
+      means.
+    log_var: Output tensor of shape (batch_size, num_latent) with latent
+      variable log variances.
+  """
+  cs = [1, 64, 128, 256]
+  i0 = inference0(input_tensor, cs, is_training)
+  l0 = ladder0(input_tensor, cs, 4,is_training)
+  i1 = inference1(i0, cs, is_training)
+  l1 = ladder1(i0, cs, 3, is_training)
+  l2 = ladder2(i1, cs, 3, is_training)
+  means = tf.concat([l0[0], l1[0], l2[0]], 1)
+  log_var = tf.concat([l0[1], l1[1], l2[1]], 1)
+
+  return means, log_var
+
+@gin.configurable("h_decoder", whitelist=[])
+def h_decoder(latent_tensor,output_shape, is_training=False):
+  """Convolutional decoder used in beta-VAE paper for the chairs data.
+  Based on row 3 of Table 1 on page 13 of "beta-VAE: Learning Basic Visual
+  Concepts with a Constrained Variational Framework"
+  (https://openreview.net/forum?id=Sy2fzU9gl)
+  Args:
+    latent_tensor: Input tensor of shape (batch_size,) to connect decoder to.
+    output_shape: Shape of the data.
+    is_training: Whether or not the graph is built for training (UNUSED).
+  Returns:
+    Output tensor of shape (batch_size, 64, 64, num_channels) with the [0,1]
+      pixel intensities.
+  """
+  #print("##############################################")
+  #print(latent_tensor.shape, latent_tensor[:,7:10].shape)
+  data_dims = 64
+  fs = [data_dims, data_dims // 2, data_dims // 4, data_dims // 8,
+        data_dims // 16]
+  cs = [1, 64, 128, 256]
+  l0, l1, l2 = latent_tensor[:, :4], latent_tensor[:, 4:7], latent_tensor[:, 7:10]
+  d1 = generative2(l2, cs, is_training=is_training)
+  d2 = generative1(d1, cs, l1, is_training=is_training)
+  d3 = generative0(d2, cs, fs, l0, is_training=is_training)
+  return d3
+"""
+
+@gin.configurable("h_beta_tc_vae")
+class HBetaTCVAE(vae.BaseVAE):
+  HBetaTCVAE model
+  def __init__(self, beta=gin.REQUIRED, ladder0=gin.REQUIRED, ladder1=gin.REQUIRED, ladder2=gin.REQUIRED):
+    self.h_latent = [ladder0, ladder1, ladder2]
+    self.beta = beta
+    self.cs = [1, 64, 128, 256]
+  
+  def compute_gaussian_kl(self, z_mean, z_logvar):
+  
+    return tf.reduce_mean(0.5 * tf.reduce_sum(
+        tf.square(z_mean) + tf.exp(z_logvar) - z_logvar - 1, [1]),name="kl_loss")
+
+  def model_fn(self, features, labels, mode, params):
+      TPUEstimator compatible model function.
+      del labels
+      is_training = (mode == tf.estimator.ModeKeys.TRAIN)
+      data_shape = features.get_shape().as_list()[1:]
+      data_dims = data_shape[1]
+      fs = [data_dims, data_dims // 2, data_dims // 4, data_dims // 8,
+             data_dims // 16]
+      z_mean, z_logvar = h_encoder(features, self.h_latent, self.cs, is_training=is_training)
+      z_sampled = self.sample_from_latent_distribution(z_mean, z_logvar)
+      reconstructions = h_decoder(z_sampled, self.cs, fs, self.h_latent,is_training=is_training)
+      per_sample_loss = losses.make_reconstruction_loss(features, reconstructions)
+      reconstruction_loss = tf.reduce_mean(per_sample_loss)
+      kl_loss = self.compute_gaussian_kl(z_mean, z_logvar)
+      regularizer = self.regularizer(kl_loss, z_mean, z_logvar, z_sampled)
+      loss = tf.add(reconstruction_loss, regularizer, name="loss")
+      elbo = tf.add(reconstruction_loss, kl_loss, name="elbo")
+      if mode == tf.estimator.ModeKeys.TRAIN:
+          optimizer = optimizers.make_vae_optimizer()
+          update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
+          train_op = optimizer.minimize(
+              loss=loss, global_step=tf.train.get_global_step())
+          train_op = tf.group([train_op, update_ops])
+          tf.summary.scalar("reconstruction_loss", reconstruction_loss)
+          tf.summary.scalar("elbo", -elbo)
+
+          logging_hook = tf.train.LoggingTensorHook({
+              "loss": loss,
+              "reconstruction_loss": reconstruction_loss,
+              "elbo": -elbo
+          },
+              every_n_iter=100)
+          return tf.contrib.tpu.TPUEstimatorSpec(
+              mode=mode,
+              loss=loss,
+              train_op=train_op,
+              training_hooks=[logging_hook])
+      elif mode == tf.estimator.ModeKeys.EVAL:
+          return tf.contrib.tpu.TPUEstimatorSpec(
+              mode=mode,
+              loss=loss,
+              eval_metrics=(make_metric_fn("reconstruction_loss", "elbo",
+                                           "regularizer", "kl_loss"),
+                            [reconstruction_loss, -elbo, regularizer, kl_loss]))
+      else:
+          raise NotImplementedError("Eval mode not supported.")
+
+  def regularizer(self, kl_loss, z_mean, z_logvar, z_sampled):
+    tc = (self.beta - 1.) * total_correlation(z_sampled, z_mean, z_logvar)
+    return tc + kl_loss
+
+#hbetatcvae
+gin_bindings = [
+    "dataset.name = '{}'".format(DATASET_NAME),
+    "model.model = @h_beta_tc_vae()",
+    "h_beta_tc_vae.beta = 4.8",
+    "h_beta_tc_vae.ladder0 = 4",
+    "h_beta_tc_vae.ladder1 = 3",
+    "h_beta_tc_vae.ladder2 = 3"
+
+]
+"""
 @gin.configurable("DIPTCVAE")
 class DIPTCVAE(vae.BaseVAE):
-  """BetaTCVAE model."""
+  #BetaTCVAE model.
 
   def __init__(self, beta=gin.REQUIRED,
                lambda_od=gin.REQUIRED,
@@ -408,17 +584,17 @@ class DIPTCVAE(vae.BaseVAE):
 #     "DIPTCVAE.dip_type='ii'"
 # ]
 # #factor vae
+gin_bindings = [
+     "dataset.name = '{}'".format(DATASET_NAME),
+     "model.model = @factor_vae()",
+     "factor_vae.gamma = 6.4"
+]
+#tcvae
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),
-#     "model.model = @factor_vae()",
-#     "factor_vae.gamma = 6.4"
+#     "model.model = @beta_tc_vae()",
+#     "beta_tc_vae.beta = 4.8"
 # ]
-#tcvae
-gin_bindings = [
-    "dataset.name = '{}'".format(DATASET_NAME),
-    "model.model = @beta_tc_vae()",
-    "beta_tc_vae.beta = 4"
-]
 #L0BetaTCVAE
 # gin_bindings = [
 #     "dataset.name = '{}'".format(DATASET_NAME),
@@ -427,13 +603,14 @@ gin_bindings = [
 # ]
 
 # #dipvae i
-# gin_bindings = [
-#     "dataset.name = '{}'".format(DATASET_NAME),
-#     "model.model = @dip_vae()",
-#     "dip_vae.lambda_od = 2",
-#     "dip_vae.lambda_d_factor = 20",
-#     "dip_vae.dip_type = 'i'"
-# ]
+'''
+gin_bindings = [
+     "dataset.name = '{}'".format(DATASET_NAME),
+     "model.model = @dip_vae()",
+     "dip_vae.lambda_od = 2",
+     "dip_vae.lambda_d_factor = 20",
+     "dip_vae.dip_type = 'i'"
+] '''
 
 #dipvae ii
 # gin_bindings = [
@@ -455,7 +632,7 @@ experiment_output_path = os.path.join(base_path, experiment_name)
 #                      checkpoint_path,
 #                      export_path,
 #                      drop_collections=None):
-#   """Exports the provided GaussianEncoderModel as a TFHub module.
+#   Exports the provided GaussianEncoderModel as a TFHub module.
 #
 #   Args:
 #     gaussian_encoder_model: GaussianEncoderModel to be exported.
@@ -463,7 +640,7 @@ experiment_output_path = os.path.join(base_path, experiment_name)
 #     checkpoint_path: String with path where to load weights from.
 #     export_path: String with path where to save the TFHub module to.
 #     drop_collections: List of collections to drop from the graph.
-#   """
+#   
 #
 #   def module_fn(is_training):
 #     """Module function used for TFHub export."""
@@ -557,3 +734,4 @@ aicrowd_helpers.register_progress(1.0)
 ########################################################################
 cuda.close() 
 aicrowd_helpers.submit()
+

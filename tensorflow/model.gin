@@ -28,7 +28,7 @@ discriminator_optimizer.learning_rate = 0.0001
 
 #decay
 vae_optimizer.optimizer_fn = @AdamOptimizer
-vae_optimizer.learning_rate = 2e-4
+vae_optimizer.learning_rate = 1e-4
 
 # discriminator_optimizer.optimizer_fn=@AdamOptimizer
 # discriminator_optimizer.learning_rate = @exponential_decay
@@ -44,7 +44,7 @@ AdamOptimizer.name = 'Adam'
 AdamOptimizer.use_locking = False
 
 # We train for only 20 steps, in practice we train for 300000 steps.
-model.training_steps = 20000
+model.training_steps = 300000
 model.random_seed=0
 
 #encoder.encoder_fn = @lconv_encoder

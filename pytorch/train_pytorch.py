@@ -34,7 +34,7 @@ import torch
 import torch.utils.data
 from torch import nn, optim
 from torch.nn import functional as F
-
+from l0_layers import L0Dense, L0Pair
 import utils_pytorch as pyu
 
 import aicrowd_helpers
@@ -44,15 +44,19 @@ import math
 parser = argparse.ArgumentParser(description='VAE Example')
 parser.add_argument('--batch-size', type=int, default=128, metavar='N',
                     help='input batch size for training (default: 128)')
-parser.add_argument('--epochs', type=int, default=1000, metavar='N',
+parser.add_argument('--epochs', type=int, default=500, metavar='N',
                     help='number of epochs to train (default: 10)')
 parser.add_argument('--no-cuda', action='store_true', default=False,
                     help='enables CUDA training')
 parser.add_argument('--seed', type=int, default=1, metavar='S',
                     help='random seed (default: 1)')
-parser.add_argument('--log-interval', type=int, default=10, metavar='N',
+parser.add_argument('--log-interval', type=int, default=50, metavar='N',
                     help='how many batches to wait before logging training status')
-
+parser.add_argument('--pruning', action='store_true', default=False,
+                    help='enables Pruning')
+parser.add_argument('--model',action='store',default="VAE")
+parser.add_argument('--dim',type=int, default=10,metavar='N',
+                    help='dimension of latent z')
 args = parser.parse_args()
 args.cuda = not args.no_cuda and torch.cuda.is_available()
 
@@ -73,8 +77,6 @@ class UnFlatten(nn.Module):
         self.z_dim = z_dim
     def forward(self, input, size=1024):
         return input.view(input.size(0), self.z_dim, 1, 1)
-
-
 
 
 # class Encoder(nn.Module):
@@ -114,12 +116,22 @@ class Encoder(nn.Module):
             Flatten(),
             nn.Linear(576, 256),
         )
-        self.head_mu = nn.Linear(256, z_dim)
-        self.head_logvar = nn.Linear(256, z_dim)
+        if args.pruning != True:
+            self.head_mu = nn.Linear(256, z_dim)
+            self.head_logvar = nn.Linear(256, z_dim)
+        else:
+            self.head = L0Pair(256, z_dim, droprate_init=0.2, weight_decay=0.001, lamba=0.1)
 
     def forward(self, x):
         h = self.encoder(x)
-        return self.head_mu(h), self.head_logvar(h)
+        if args.pruning ==True:
+            mu,var = self.head(h)
+            logvar = torch.log(var)
+            l0_reg = self.head.regularization().cuda()/50000
+            mask = self.head.sample_mask()
+            return mu, logvar, mask, l0_reg
+        else:
+            return self.head_mu(h), self.head_logvar(h)
 
 class Decoder(nn.Sequential):
     def __init__(self,z_dim):
@@ -152,11 +164,15 @@ class RepresentationExtractor(nn.Module):
     def __init__(self, encoder, mode='mean'):
         super(RepresentationExtractor, self).__init__()
        # assert mode in self.VALID_MODES, f'`mode` must be one of {self.VALID_MODES}'
-        self.encoder = encoder
+        self.encoder = encoder.cuda()
         self.mode = mode
 
     def forward(self, x):
-        mu, logvar = self.encoder(x)
+        x = x.to(device)
+        if args.pruning ==True:
+            mu, logvar, mask, l0_reg = self.encoder(x)
+        else:
+            mu, logvar = self.encoder(x)
         if self.mode == 'mean':
             return mu
         elif self.mode == 'sample':
@@ -177,23 +193,28 @@ class VAE(nn.Module):
         self.decoder = Decoder(z_dim)
 
     def forward(self, x):
-        mu, logvar = self.encoder(x)
-        z = RepresentationExtractor.reparameterize(mu, logvar)
-        return self.decoder(z), mu, logvar, z
+        if args.pruning ==True:
+            mu, logvar, mask,l0_reg = self.encoder(x)
+            z = RepresentationExtractor.reparameterize(mu, logvar)
+            return self.decoder(z), mu, logvar, z, mask, l0_reg
+        else:
+            mu, logvar = self.encoder(x)
+            z = RepresentationExtractor.reparameterize(mu, logvar)
+            return self.decoder(z), mu, logvar, z
 
-z_dim=10
+z_dim=args.dim
 model = VAE(z_dim=z_dim).to(device)
 optimizer = optim.Adam(model.parameters(), lr=1e-4)###try SGD!!
 
 # Reconstruction + KL divergence losses summed over all elements and batch
-def loss_function(recon_x, x, mu, logvar):
+def loss_function(recon_x, x, mu, logvar, mask=torch.tensor(1.0)):
     BCE = F.binary_cross_entropy(recon_x, x.view(-1, 4096 * 3), reduction='sum')
-
     # see Appendix B from VAE paper:
     # Kingma and Welling. Auto-Encoding Variational Bayes. ICLR, 2014
     # https://arxiv.org/abs/1312.6114
     # 0.5 * sum(1 + log(sigma^2) - mu^2 - sigma^2)
-    KLD = -0.5 * torch.sum(1 + logvar - mu.pow(2) - logvar.exp())
+    mask = mask.cuda()        
+    KLD = -0.5 * torch.sum(mask.reshape(1,-1)*(1 + logvar - mu.pow(2) - logvar.exp()))
 
     return BCE + KLD
 
@@ -236,23 +257,56 @@ def BetaTC_reg(z_mean, z_logvar, z_sampled, beta=6):
     return tc
 
 
+def DIP_loss(mean,lambda_od=20,lambda_d=2):
+    exp_mu = torch.mean(mean, dim=0)  #####mean through batch
+    # expectation of mu mu.tranpose
+    mu_expand1 = mean.unsqueeze(1)  #####(batch_size, 1, number of mean of latent variables)
+    mu_expand2 = mean.unsqueeze(
+        2)  #####(batch_size, number of mean of latent variables, 1) ignore batch_size, only transpose the means
+    exp_mu_mu_t = torch.mean(mu_expand1 * mu_expand2, dim=0)
+    # covariance of model mean
+    cov = exp_mu_mu_t - exp_mu.unsqueeze(0) * exp_mu.unsqueeze(1)  ##1, mean* mean, 1
+    diag_part = torch.diagonal(cov, offset=0, dim1=-2, dim2=-1)
+    off_diag_part = cov - torch.diag(diag_part)
+
+    regulariser_od = lambda_od * torch.sum(off_diag_part ** 2)
+    regulariser_d = lambda_d * torch.sum((diag_part - 1) ** 2)
+
+    DIP = regulariser_d + regulariser_od
+
+    return DIP
+
+
+
 def train(epoch):
     model.train()
     train_loss = 0
+    l0_reg=0
     for batch_idx, data in enumerate(train_loader):
         data = data.to(device).float()
         optimizer.zero_grad()
-        recon_batch, mu, logvar, z_sample = model(data)
+        if args.pruning:
+            recon_batch, mu, logvar, z_sample,mask, l0_reg = model(data)
+            VAE_loss = loss_function(recon_batch, data, mu, logvar, mask)
+            loss = VAE_loss+l0_reg
+        else:
+            recon_batch, mu, logvar, z_sample = model(data)
+            VAE_loss = loss_function(recon_batch, data, mu, logvar)
+            loss = VAE_loss
+        """
         BetaTC = BetaTC_reg(mu,logvar,z_sample)
         loss = loss_function(recon_batch, data, mu, logvar)+BetaTC
-        loss.backward()
+        """
+        DIP = DIP_loss(mu)
+        loss = loss+DIP
+        loss.backward() 
         train_loss += loss.item()
         optimizer.step()
         if batch_idx % args.log_interval == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}\tBeta_Loss:{:.6f}'.format(
+            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}\tDIP_Loss:{:.6f}\tL0_Loss:{:.6f}'.format(
                 epoch, batch_idx * len(data), len(train_loader.dataset),
                 100. * batch_idx / len(train_loader),
-                loss.item() / len(data), BetaTC))### last term ["BetaTC","DIP"]
+                VAE_loss.item() / len(data), DIP,l0_reg))### last term ["BetaTC","DIP"]
 
     print('====> Epoch: {} Average loss: {:.4f}'.format(
           epoch, train_loss / len(train_loader.dataset)))
@@ -269,12 +323,15 @@ if __name__ == '__main__':
         train(epoch)
     # Almost done...
     elapsed_time = time.time() - start_time
-    file_name = "model.pth"
+    if args.pruning:
+        file_name = "p_model.pth"
+    else:
+        file_name = "model.pth"
     torch.save(model.state_dict(),file_name)
     aicrowd_helpers.register_progress(0.90)
     # Export the representation extractor
-    pyu.export_model(RepresentationExtractor(model.encoder, 'mean'),
-                     input_shape=(1, 3, 64, 64))
+    pyu.export_model(RepresentationExtractor(model.encoder.cuda(), 'mean').to(device),
+                     input_shape=(1, 3, 64, 64), model_name=args.model)
     # Done!
     aicrowd_helpers.register_progress(1.0)
     aicrowd_helpers.submit()
